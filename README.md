@@ -21,3 +21,7 @@ The .NET executable is a dependency-free scenario harness. A nonzero exit is fai
 Open `docs/m01/prototypes.html` in a browser to explore the six roles using invented fixture data. No prototype control sends bookings, tracks a device, updates a real tenant menu or deploys infrastructure. The target web application is React; the standalone HTML is a review artifact.
 
 Do not commit credentials, personal data or live driver locations. Changes are prepared on review branches; milestone completion requires applicable review and test evidence.
+
+## M02 local foundation
+
+The [M02 installation guide](docs/m02/README.md) describes the containerised .NET/PostgreSQL/React foundation and independent setup console. Launch cargo is parcels: one initial tenant, ten drivers and about 250 deliveries/day. The first increment establishes infrastructure; identity, tenant/system administration, menus and business operations have separate acceptance tasks.

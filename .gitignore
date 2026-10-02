@@ -1,6 +1,7 @@
 **/bin/
 **/obj/
 node_modules/
+**/dist/
 test-results/
 .env*
 !.env.example
@@ -9,5 +10,6 @@ test-results/
 *.sqlite*
 *.log
 !docs/m01/evidence/*.log
+!docs/m02/evidence/*.log
 .DS_Store
 secrets/

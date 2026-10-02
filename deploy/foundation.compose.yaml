@@ -1,0 +1,114 @@
+name: tms-foundation
+x-runtime: &runtime
+  restart: unless-stopped
+  read_only: true
+  tmpfs: [/tmp]
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  networks: [backend]
+  environment: &foundation-env
+    DB_HOST: database
+    DB_NAME: tms
+    STORAGE_READINESS_URI: http://storage:9333/cluster/status
+services:
+  database:
+    image: tms-foundation-database:m02
+    build: {context: .., dockerfile: deploy/database.Dockerfile}
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: tms
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+    volumes:
+      - database-data:/var/lib/postgresql
+      - database-secret:/run/secrets:ro
+      - migrator-secret:/bootstrap/migrator:ro
+      - api-secret:/bootstrap/api:ro
+      - worker-secret:/bootstrap/worker:ro
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U postgres -d tms']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    networks: [backend]
+  storage:
+    image: chrislusf/seaweedfs:4.48@sha256:4e61d15fd35994cb1e43e1e553dff106794841fd9a99ade2fc8c8bfce4d7872d
+    command: [server, -dir=/data, -ip=storage, -ip.bind=0.0.0.0, -s3, -s3.config=/run/secrets/s3_config.json]
+    restart: unless-stopped
+    volumes: [storage-data:/data, 'storage-secret:/run/secrets:ro']
+    healthcheck:
+      test: [CMD, wget, -q, -O, /dev/null, 'http://127.0.0.1:9333/cluster/status']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    networks: [backend]
+  migrate:
+    <<: *runtime
+    restart: 'no'
+    image: tms-foundation-api:m02
+    build: {context: .., dockerfile: deploy/foundation.Dockerfile, target: api}
+    command: [--migrate]
+    volumes: ['migrator-secret:/run/secrets:ro']
+    depends_on:
+      database: {condition: service_healthy}
+  api:
+    <<: *runtime
+    image: tms-foundation-api:m02
+    build: {context: .., dockerfile: deploy/foundation.Dockerfile, target: api}
+    volumes: ['api-secret:/run/secrets:ro']
+    networks: [backend, frontend]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+      storage: {condition: service_healthy}
+    healthcheck:
+      test: [CMD, dotnet, Tms.Foundation.Api.dll, --verify]
+      interval: 10s
+      timeout: 10s
+      retries: 12
+  worker:
+    <<: *runtime
+    image: tms-foundation-worker:m02
+    build: {context: .., dockerfile: deploy/foundation.Dockerfile, target: worker}
+    volumes: ['worker-secret:/run/secrets:ro']
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+    healthcheck:
+      test: [CMD, dotnet, Tms.Foundation.Worker.dll, --verify]
+      interval: 10s
+      timeout: 10s
+      retries: 12
+  web:
+    image: tms-foundation-web:m02
+    build: {context: .., dockerfile: web/Dockerfile}
+    restart: unless-stopped
+    ports: ['127.0.0.1:${TMS_APP_PORT:-8180}:8080']
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    networks: [frontend]
+    depends_on:
+      api: {condition: service_healthy}
+    healthcheck:
+      test: [CMD, wget, -q, -O, /dev/null, 'http://127.0.0.1:8080/health/ready']
+      interval: 10s
+      timeout: 5s
+      retries: 12
+  smoke:
+    <<: *runtime
+    restart: 'no'
+    profiles: [test]
+    image: tms-foundation-smoke:m02
+    build: {context: .., dockerfile: deploy/foundation.Dockerfile, target: smoke}
+    volumes: ['worker-secret:/run/secrets:ro']
+networks:
+  backend: {internal: true}
+  frontend: {}
+volumes:
+  database-data: {}
+  storage-data: {}
+  database-secret: {external: true, name: tms-foundation-database-secret}
+  migrator-secret: {external: true, name: tms-foundation-migrator-secret}
+  api-secret: {external: true, name: tms-foundation-api-secret}
+  worker-secret: {external: true, name: tms-foundation-worker-secret}
+  storage-secret: {external: true, name: tms-foundation-storage-secret}

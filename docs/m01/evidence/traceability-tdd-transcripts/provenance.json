@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "baselineId": "freight-tms-baseline-01",
+  "taskId": "M01-T04",
+  "classification": "local_behavioral_tdd_tool_transcript_record",
+  "sourceAgent": "/root/tenant_integrations_review",
+  "runDateFromSession": "2026-10-02",
+  "exactRunTimestamp": null,
+  "testedCommitSha": null,
+  "environment": {
+    "platform": "Windows",
+    "shell": "PowerShell",
+    "nodeVersionObserved": "24.19.0",
+    "workingDirectory": "[repository]",
+    "dependencies": "Node built-in modules only for the traceability checks"
+  },
+  "red": {
+    "command": "node --test tests/traceability.test.mjs",
+    "originalExecutionTool": "functions.exec -> tools.exec_command",
+    "originalExecutionChunkId": "75552d",
+    "originalProcessExitCode": 1,
+    "originalOutputTokenCount": 794,
+    "originalToolWallTimeSeconds": 0.5519007,
+    "tests": 29,
+    "passed": 28,
+    "failed": 1,
+    "skipped": 0,
+    "failingTest": "every executable .NET harness case must retain a traceability mapping",
+    "failure": "AssertionError [ERR_ASSERTION]: Missing expected exception.",
+    "behaviouralFixture": "Remove DDD-STATE-01 from scenarios and all criterion backlinks while leaving the declared .NET harness case present.",
+    "missingBehaviourAtRun": "The checker validated each mapped case but did not compare the entire harness case set with the traceability case set.",
+    "file": "red.transcript.txt"
+  },
+  "green": {
+    "command": "node --test tests/traceability.test.mjs; node scripts/check-traceability.mjs",
+    "originalExecutionTool": "functions.exec -> tools.exec_command",
+    "originalExecutionChunkId": null,
+    "originalProcessExitCode": null,
+    "metadataLimitation": "The orchestrating tool printed only command output for this run; individual exec metadata was not preserved in its visible result.",
+    "tests": 29,
+    "passed": 29,
+    "failed": 0,
+    "skipped": 0,
+    "implementedBehaviour": "Compare all declared .NET harness case IDs with all mapped contract-example IDs and reject missing or duplicate mappings.",
+    "inventory": {
+      "requirements": 63,
+      "requirementCriteria": 126,
+      "tasks": 46,
+      "taskCriteria": 93,
+      "planned": 93,
+      "examples": 17,
+      "verified": 0
+    },
+    "file": "green.transcript.txt"
+  },
+  "preservation": {
+    "originalRawLogFilesAvailable": false,
+    "source": "Original tool-visible stdout/stderr text retained in the completed Codex conversation",
+    "representation": "Manually preserved transcript copies; not original byte-for-byte process stream files",
+    "sanitisation": "Absolute user/workspace prefixes in stack trace file URLs replaced with [repository]/; test names, results, errors and command semantics retained",
+    "runsRecreatedForThisRecord": false,
+    "sourceFilesEditedDuringPreservation": false,
+    "browserApiOrGitOperationsDuringPreservation": false,
+    "transcriptSha256": {
+      "red.transcript.txt": "b2cf9c784d579afbbf529bb892ea545169a1f8391f24519932bc65694d19084b",
+      "green.transcript.txt": "e46a6c16083b854d578b0caa7ec84ddc8bc54c76586269a8695cdd250f81794c"
+    }
+  },
+  "assessmentLimits": [
+    "Shows this specific traceability-checker behavioural RED/GREEN sequence.",
+    "Does not supply a historical immutable Git SHA or precise timestamp; neither was recorded.",
+    "A later commit preserving these records does not retroactively identify the original tested tree.",
+    "Does not verify production APIs, PostgreSQL isolation, mobile devices, routing providers, restore operations or a working TMS."
+  ]
+}

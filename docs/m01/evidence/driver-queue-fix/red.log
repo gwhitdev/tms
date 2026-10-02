@@ -1,0 +1,229 @@
+✖ editing driver-quantity preserves the form subtree and draft value (52.7363ms)
+✖ editing driver-reason preserves the form subtree and draft value (4.233ms)
+✖ editing driver-signature preserves the form subtree and draft value (4.576ms)
+✔ editing driver-recipient preserves the form subtree and draft value (6.0933ms)
+✖ missing arrival, photo and signature leave the queue empty and show specific form errors (7.4819ms)
+✔ a complete full delivery creates one local queued event and cannot be recorded twice (13.3824ms)
+✔ a partial delivery records offline with its reason and reconnect does not acknowledge it (9.4882ms)
+✖ a missing partial-delivery reason gives a visible reason error and preserves evidence (23.5988ms)
+✖ invalid quantity "" is rejected with a visible quantity error (7.1173ms)
+✖ invalid quantity "1.5" is rejected with a visible quantity error (5.3392ms)
+✖ invalid quantity "-1" is rejected with a visible quantity error (3.3121ms)
+✖ invalid quantity "4" is rejected with a visible quantity error (3.6693ms)
+✖ a whitespace-only recipient is rejected without discarding the captured evidence (3.7742ms)
+✔ a manifest conflict preserves the queued event through dispatch review (5.3249ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 4
+ℹ fail 10
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 466.0252
+
+✖ failing tests:
+
+test at work\tms\tests\driver-prototype.test.mjs:135:3
+✖ editing driver-quantity preserves the form subtree and draft value (52.7363ms)
+  AssertionError [ERR_ASSERTION]: Input/change must not replace the clicked form controls before the next click.
+  
+  3 !== 2
+  
+      at TestContext.<anonymous> (file:///[repository]/tests/driver-prototype.test.mjs:141:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at work\tms\tests\driver-prototype.test.mjs:135:3
+✖ editing driver-reason preserves the form subtree and draft value (4.233ms)
+  AssertionError [ERR_ASSERTION]: Input/change must not replace the clicked form controls before the next click.
+  
+  4 !== 3
+  
+      at TestContext.<anonymous> (file:///[repository]/tests/driver-prototype.test.mjs:141:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 4,
+    expected: 3,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at work\tms\tests\driver-prototype.test.mjs:135:3
+✖ editing driver-signature preserves the form subtree and draft value (4.576ms)
+  AssertionError [ERR_ASSERTION]: Input/change must not replace the clicked form controls before the next click.
+  
+  3 !== 2
+  
+      at TestContext.<anonymous> (file:///[repository]/tests/driver-prototype.test.mjs:141:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at work\tms\tests\driver-prototype.test.mjs:145:1
+✖ missing arrival, photo and signature leave the queue empty and show specific form errors (7.4819ms)
+  AssertionError [ERR_ASSERTION]: Validation errors must be retained with the driver draft.
+      at TestContext.<anonymous> (file:///[repository]/tests/driver-prototype.test.mjs:152:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at work\tms\tests\driver-prototype.test.mjs:198:1
+✖ a missing partial-delivery reason gives a visible reason error and preserves evidence (23.5988ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(driver.errors?.some(error => error.field === 'reason'))
+  
+      at TestContext.<anonymous> (file:///[repository]/tests/driver-prototype.test.mjs:208:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at work\tms\tests\driver-prototype.test.mjs:214:3
+✖ invalid quantity "" is rejected with a visible quantity error (7.1173ms)
+  AssertionError [ERR_ASSERTION]: Blank input must not be coerced into a valid zero-delivery record.
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///[repository]/tests/driver-prototype.test.mjs:222:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at work\tms\tests\driver-prototype.test.mjs:214:3
+✖ invalid quantity "1.5" is rejected with a visible quantity error (5.3392ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(driver.errors?.some(error => error.field === 'quantity'))
+  
+      at TestContext.<anonymous> (file:///[repository]/tests/driver-prototype.test.mjs:224:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at work\tms\tests\driver-prototype.test.mjs:214:3
+✖ invalid quantity "-1" is rejected with a visible quantity error (3.3121ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(driver.errors?.some(error => error.field === 'quantity'))
+  
+      at TestContext.<anonymous> (file:///[repository]/tests/driver-prototype.test.mjs:224:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at work\tms\tests\driver-prototype.test.mjs:214:3
+✖ invalid quantity "4" is rejected with a visible quantity error (3.6693ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(driver.errors?.some(error => error.field === 'quantity'))
+  
+      at TestContext.<anonymous> (file:///[repository]/tests/driver-prototype.test.mjs:224:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at work\tms\tests\driver-prototype.test.mjs:229:1
+✖ a whitespace-only recipient is rejected without discarding the captured evidence (3.7742ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(driver.errors?.some(error => error.field === 'recipient'))
+  
+      at TestContext.<anonymous> (file:///[repository]/tests/driver-prototype.test.mjs:238:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

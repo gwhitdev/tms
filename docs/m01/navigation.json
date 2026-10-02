@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "taskId": "M01-T03",
+  "status": "proposed-review-pending",
+  "implementationTarget": {"api": ".NET", "database": "PostgreSQL (PostGIS is an optional, proposed extension)", "web": "React", "locale": "en-GB", "timezone": "Europe/London"},
+  "permissionsAreServerEnforced": true,
+  "navigationIsPresentationOnly": true,
+  "externalLinks": {"enabled": false, "policy": "A later registered external-link feature requires an explicit HTTPS origin allowlist; no arbitrary URL or script fields."},
+  "roles": {
+    "dispatcher": {"label": "Dispatcher", "scope": "tenant-and-depot", "permissions": ["dispatch.read", "dispatch.plan", "dispatch.commit", "tracking.read"]},
+    "driver": {"label": "Driver mobile", "scope": "assigned-work-and-own-device", "permissions": ["driver.manifest", "driver.execute", "driver.evidence", "driver.device"]},
+    "customer": {"label": "Customer", "scope": "tenant-and-own-customer", "permissions": ["customer.bookings", "customer.booking.create", "customer.tracking"]},
+    "tenant_admin": {"label": "Tenant administrator", "scope": "own-tenant", "permissions": ["tenant.settings", "tenant.members", "tenant.navigation", "tenant.integrations", "tenant.audit"]},
+    "system_admin": {"label": "System administrator", "scope": "platform-metadata", "permissions": ["platform.tenants", "platform.services", "platform.navigation", "platform.audit"]},
+    "installer": {"label": "Installer / operator", "scope": "independent-deployment-control-plane", "permissions": ["deployment.install", "deployment.health", "deployment.recover"]}
+  },
+  "catalogue": [
+    {"id": "operations.dispatch", "label": "Dispatch workbench", "group": "Operations", "order": 10, "route": "/operations/dispatch", "module": "dispatch", "scope": "tenant-and-depot", "permission": "dispatch.read", "prototype": "dispatch", "essentialFor": [], "requirements": ["PLAN-02", "PLAN-04", "PLAN-05"]},
+    {"id": "operations.tracking", "label": "Tracking & exceptions", "group": "Operations", "order": 20, "route": "/operations/tracking", "module": "tracking", "scope": "tenant-and-depot", "permission": "tracking.read", "prototype": "tracking", "essentialFor": [], "requirements": ["MOBILE-04", "QUALITY-05"]},
+    {"id": "driver.manifest", "label": "My run", "group": "Driver", "order": 10, "route": "/driver/run", "module": "driver", "scope": "assigned-work", "permission": "driver.manifest", "prototype": "driver", "essentialFor": ["driver"], "requirements": ["MOBILE-01", "MOBILE-02"]},
+    {"id": "driver.device", "label": "Device & sync", "group": "Driver", "order": 20, "route": "/driver/device", "module": "tracking", "scope": "own-device", "permission": "driver.device", "prototype": "device", "essentialFor": [], "requirements": ["MOBILE-02", "MOBILE-04"]},
+    {"id": "customer.bookings", "label": "My bookings", "group": "Customer", "order": 10, "route": "/customer/bookings", "module": "bookings", "scope": "own-customer", "permission": "customer.bookings", "prototype": "customer", "essentialFor": [], "requirements": ["BOOK-03", "BOOK-04"]},
+    {"id": "customer.tracking", "label": "Delivery updates", "group": "Customer", "order": 20, "route": "/customer/deliveries", "module": "execution", "scope": "own-customer", "permission": "customer.tracking", "prototype": "customer_tracking", "essentialFor": [], "requirements": ["QUALITY-05", "SEC-02"]},
+    {"id": "tenant.settings", "label": "Tenant settings", "group": "Administration", "order": 10, "route": "/admin/settings", "module": "administration", "scope": "own-tenant", "permission": "tenant.settings", "prototype": "tenant", "essentialFor": ["tenant_admin"], "requirements": ["ADMIN-01", "ADMIN-04"]},
+    {"id": "tenant.navigation", "label": "Menus & role preview", "group": "Administration", "order": 20, "route": "/admin/navigation", "module": "administration", "scope": "own-tenant", "permission": "tenant.navigation", "prototype": "menus", "essentialFor": ["tenant_admin"], "requirements": ["ADMIN-03", "ADMIN-04"]},
+    {"id": "tenant.integrations", "label": "ERP connections", "group": "Administration", "order": 30, "route": "/admin/integrations", "module": "integrations", "scope": "own-tenant", "permission": "tenant.integrations", "prototype": "integrations", "essentialFor": [], "requirements": ["API-01", "ADMIN-01"]},
+    {"id": "platform.tenants", "label": "Tenants & entitlements", "group": "Platform", "order": 10, "route": "/system/tenants", "module": "platform", "scope": "platform-metadata", "permission": "platform.tenants", "prototype": "system", "essentialFor": ["system_admin"], "requirements": ["ADMIN-02", "ADMIN-05"]},
+    {"id": "platform.services", "label": "Service health", "group": "Platform", "order": 20, "route": "/system/services", "module": "platform", "scope": "platform-metadata", "permission": "platform.services", "prototype": "services", "essentialFor": [], "requirements": ["ADMIN-02", "DEPLOY-07"]},
+    {"id": "platform.navigation", "label": "System menu defaults", "group": "Platform", "order": 30, "route": "/system/navigation", "module": "platform", "scope": "platform-metadata", "permission": "platform.navigation", "prototype": "system_menus", "essentialFor": ["system_admin"], "requirements": ["ADMIN-03", "ADMIN-04"]},
+    {"id": "deployment.install", "label": "Install & update", "group": "Deployment", "order": 10, "route": "/installer/install", "module": "control-plane", "scope": "deployment-control-plane", "permission": "deployment.install", "prototype": "installer", "essentialFor": ["installer"], "requirements": ["DEPLOY-02", "DEPLOY-03", "DEPLOY-04"]},
+    {"id": "deployment.health", "label": "Health & recovery", "group": "Deployment", "order": 20, "route": "/installer/health", "module": "control-plane", "scope": "deployment-control-plane", "permission": "deployment.health", "prototype": "health", "essentialFor": ["installer"], "requirements": ["DEPLOY-03", "DEPLOY-05", "DEPLOY-07"]}
+  ],
+  "resolution": [
+    "Authenticate principal and select permitted tenant/depot/customer/device context.",
+    "Resolve registered module entitlement and required permission.",
+    "Apply system defaults, then validated tenant label/order/group/visibility overrides.",
+    "Preserve essential administration and independent recovery entries.",
+    "Evaluate direct routes and commands against permission plus record scope independently of menu visibility."
+  ],
+  "publication": {"versionChecked": true, "auditRequired": true, "previewBeforePublish": true, "revertCreatesNewVersion": true, "resetAffectsPresentationOnly": true},
+  "prototypeBoundary": "This catalogue is a design contract. Browser permission checks illustrate interaction behaviour and are not production authentication or authorisation."
+}

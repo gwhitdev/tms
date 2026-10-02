@@ -1,0 +1,38 @@
+✔ the exact freight baseline maps all 63 requirements, 46 tasks and 93 task acceptance criteria (4.798ms)
+✔ removing a requirement is an orphan, not a smaller baseline (1.8636ms)
+✔ removing a task is an orphan, not completion (0.9548ms)
+✔ every requirement acceptance criterion is independently mapped (2.0388ms)
+✔ every task acceptance criterion is independently mapped (1.7473ms)
+✔ a criterion cannot conceal missing coverage behind an empty scenario list (1.6638ms)
+✔ unknown scenario references fail (1.7893ms)
+✔ a scenario must point back to its exact task criterion (1.8157ms)
+✔ unknown requirements in scenarios fail (2.0302ms)
+✔ unknown requirement acceptance indices fail (1.5678ms)
+✔ one-way links cannot masquerade as traceability (2.0142ms)
+✔ duplicate task/scenario identity cannot inflate coverage (2.2287ms)
+✔ rewriting criterion text and recomputing its digest cannot amend the pinned baseline (0.9907ms)
+✔ unstarted production tasks cannot claim reviewed or verified implementation (4.3285ms)
+✔ design candidates do not prove implemented production requirements (1.4197ms)
+✔ M01 design delivery cannot self-attest acceptance (1.7359ms)
+✔ a SHA and a passed string alone cannot manufacture assessed evidence (1.0118ms)
+✔ a planned scenario cannot claim passing execution (1.5001ms)
+✔ example executions cannot be relabelled as real PostgreSQL isolation proof (2.7435ms)
+✔ planned device and restore scenarios cannot acquire a fake example command (2.1811ms)
+✔ unknown test layers fail rather than silently weakening release assurance (1.4651ms)
+✔ future isolation cannot drop its actual runtime database role layer (1.8657ms)
+✔ future device assurance cannot be reduced to API mocks (1.708ms)
+✔ a restore drill cannot be replaced with an image-start smoke test (2.718ms)
+✔ empty scenario expectations are rejected (1.7555ms)
+✔ automatic verification cannot be switched on by editing a status field (0.8536ms)
+✔ scenario-level fabricated evidence is rejected (1.2186ms)
+✔ example commands and paths must use the declared harness (2.1156ms)
+✔ every executable .NET harness case must retain a traceability mapping (5.5629ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 163.1136
+PASS traceability requirements=63 requirementCriteria=126 tasks=46 taskCriteria=93 planned=93 examples=17 verified=0

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "gwhitdev",
+  "reviewedAtDate": "2026-10-02",
+  "reviewedCandidateSha": "297695fc6d5041b55936bda38552d9d40c5d0183",
+  "privatePlanObservedVersion": 23,
+  "source": "Both pending tasks had all acceptance indices checked in the private mini-site. The product owner then confirmed “reviewed” in this chat.",
+  "criteria": [
+    {
+      "taskId": "M01-T01",
+      "indices": [
+        0,
+        1
+      ],
+      "result": "accepted",
+      "scope": "Decision ownership, freight scope and mixed-transport extension model"
+    },
+    {
+      "taskId": "M01-T03",
+      "indices": [
+        0,
+        1
+      ],
+      "result": "accepted",
+      "scope": "Six-role workflow prototypes, navigation and defined accessible loading/error/offline/conflict states"
+    }
+  ],
+  "launchBaseline": {
+    "country": "UK",
+    "cargo": "parcels",
+    "tenants": 1,
+    "drivers": 10,
+    "deliveriesPerDay": 250
+  },
+  "limitations": [
+    "Product design review; no claim of representative specialist participation or WCAG certification.",
+    "Actual tenant isolation, identity, GPS, ERP, deployment, capacity and recovery are later milestone acceptances.",
+    "Open operational/provider/SLO decisions retain their stated owners and gates."
+  ]
+}

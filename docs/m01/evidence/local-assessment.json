@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "classification": "m01_design_and_contract_examples_only",
+  "productionAcceptance": "not_assessed",
+  "executedAt": "2026-10-02T13:08:26.213Z",
+  "environment": {
+    "os": "Windows",
+    "dotnetSdk": "10.0.400",
+    "node": "24.19.0",
+    "dotnetRestore": "offline, no third-party package dependencies"
+  },
+  "results": {
+    "domain": {
+      "passed": 17,
+      "failed": 0,
+      "redPassed": 0,
+      "redFailed": 17
+    },
+    "traceability": {
+      "passed": 29,
+      "failed": 0,
+      "skipped": 0
+    },
+    "inventory": {
+      "requirements": 63,
+      "requirementCriteria": 126,
+      "tasks": 46,
+      "taskCriteria": 93,
+      "planned": 93,
+      "examples": 17,
+      "verified": 0
+    }
+  },
+  "inputs": [
+    {
+      "path": "global.json",
+      "sha256": "b54f95ccc7a0a2199f7f2ce71cef88c853e633b5f6d0c492095cd16bbf4d8506"
+    },
+    {
+      "path": "examples/Tms.Contracts/Tms.Contracts.csproj",
+      "sha256": "d97fdffca9b3785ed1f6c5f0e3ea5744f4aa924ea16d9bb885e655da585c9999"
+    },
+    {
+      "path": "examples/Tms.Contracts/ContractExamples.cs",
+      "sha256": "08ca26e66d36fdba87d7b102e070bb4554a0bb212bfb935df118044db7f9eeec"
+    },
+    {
+      "path": "tests/Tms.Contracts.Tests/Tms.Contracts.Tests.csproj",
+      "sha256": "c84025736d436eac4752c86527ad3423ba631324b5228a210c9bb4dc2e03a883"
+    },
+    {
+      "path": "tests/Tms.Contracts.Tests/Program.cs",
+      "sha256": "1110f26ab26cecc60bcd3a9122d137f0e5e09cc9c8e2d1818d4e7f11a914848a"
+    },
+    {
+      "path": "scripts/check-traceability.mjs",
+      "sha256": "e915a61ca0b292fce015831efb76cd99170b9d11dc36da1a964df435e97a559b"
+    },
+    {
+      "path": "tests/traceability.test.mjs",
+      "sha256": "975e1d2df8b6295825e2aa64aa4799ce80b1654b8fddbd461bbd9e6a64a6eb63"
+    },
+    {
+      "path": "docs/m01/traceability.json",
+      "sha256": "96ea3972ce227d375a424279b527ee5865bf879f2691679d3895e50569d76539"
+    },
+    {
+      "path": "docs/m01/contracts.json",
+      "sha256": "45c053ac975646bb27d88f7400ccdb2aa6f6d9506c3dc6a159b4e53543abd07b"
+    },
+    {
+      "path": "docs/m01/prototypes.html",
+      "sha256": "2b121756a4d4f764e3427159d7aea4354cca7ee2965a684084fda771a84952ff"
+    },
+    {
+      "path": "docs/m01/navigation.json",
+      "sha256": "6af45b44619638269cb0a2fe2b61d09a81d853033185b2f69b73534eea17502c"
+    }
+  ],
+  "limits": [
+    "In-memory contracts do not prove PostgreSQL isolation or reservation transactions.",
+    "Workflow fixtures do not prove production UI, native mobile, GPS or accessibility conformance.",
+    "Scope and representative role reviews remain pending."
+  ]
+}

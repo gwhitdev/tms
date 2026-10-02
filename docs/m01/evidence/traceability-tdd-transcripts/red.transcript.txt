@@ -1,0 +1,56 @@
+✔ the exact freight baseline maps all 63 requirements, 46 tasks and 93 task acceptance criteria (5.1548ms)
+✔ removing a requirement is an orphan, not a smaller baseline (1.8694ms)
+✔ removing a task is an orphan, not completion (1.0207ms)
+✔ every requirement acceptance criterion is independently mapped (2.0469ms)
+✔ every task acceptance criterion is independently mapped (1.8744ms)
+✔ a criterion cannot conceal missing coverage behind an empty scenario list (1.3889ms)
+✔ unknown scenario references fail (1.6405ms)
+✔ a scenario must point back to its exact task criterion (1.6596ms)
+✔ unknown requirements in scenarios fail (1.925ms)
+✔ unknown requirement acceptance indices fail (1.5133ms)
+✔ one-way links cannot masquerade as traceability (2.301ms)
+✔ duplicate task/scenario identity cannot inflate coverage (2.3019ms)
+✔ rewriting criterion text and recomputing its digest cannot amend the pinned baseline (1.3331ms)
+✔ unstarted production tasks cannot claim reviewed or verified implementation (4.119ms)
+✔ design candidates do not prove implemented production requirements (1.4185ms)
+✔ M01 design delivery cannot self-attest acceptance (1.0539ms)
+✔ a SHA and a passed string alone cannot manufacture assessed evidence (0.8722ms)
+✔ a planned scenario cannot claim passing execution (1.6291ms)
+✔ example executions cannot be relabelled as real PostgreSQL isolation proof (1.9086ms)
+✔ planned device and restore scenarios cannot acquire a fake example command (1.8223ms)
+✔ unknown test layers fail rather than silently weakening release assurance (1.2406ms)
+✔ future isolation cannot drop its actual runtime database role layer (2.0015ms)
+✔ future device assurance cannot be reduced to API mocks (1.74ms)
+✔ a restore drill cannot be replaced with an image-start smoke test (2.1789ms)
+✔ empty scenario expectations are rejected (1.5059ms)
+✔ automatic verification cannot be switched on by editing a status field (0.8001ms)
+✔ scenario-level fabricated evidence is rejected (1.2127ms)
+✔ example commands and paths must use the declared harness (2.089ms)
+✖ every executable .NET harness case must retain a traceability mapping (6.4774ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 28
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 167.4168
+
+✖ failing tests:
+
+test at tests\traceability.test.mjs:54:1
+✖ every executable .NET harness case must retain a traceability mapping (6.4774ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> ([repository]/tests/traceability.test.mjs:58:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }

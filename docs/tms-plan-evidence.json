@@ -59,6 +59,64 @@
           "reference": "5bc8a408bcf02f19cfbbd2818118eba965f0b529 docs/m01/evidence/traceability-parent-check.log — 29/29 rejecting false progress and unsupported verification; inventory verified=0."
         }
       ]
+    },
+    {
+      "id": "M01-T01",
+      "candidateSha": "297695fc6d5041b55936bda38552d9d40c5d0183",
+      "patch": {
+        "status": "verified",
+        "owner": "gwhitdev (product review); accountable roles in decision register",
+        "notes": "Product review completed by gwhitdev on 2 October 2026: both acceptance criteria checked in the mini-site (plan v23), followed by direct confirmation 'reviewed' in this chat. UK freight/delivery scope and documented mixed-transport extension accepted for M01. Cargo, scale, hosting, SLOs and provider choices remain owned decisions with downstream gates.",
+        "evidence": "Product approval: gwhitdev checked both M01-T01 criteria in private mini-site plan v23 and confirmed 'reviewed' on 2026-10-02. Reviewed candidate 297695fc6d5041b55936bda38552d9d40c5d0183: https://github.com/gwhitdev/tms/blob/297695fc6d5041b55936bda38552d9d40c5d0183/docs/m01/scope-and-decisions.md . PR https://github.com/gwhitdev/tms/pull/1",
+        "blocker": "",
+        "checks": [
+          0,
+          1
+        ]
+      },
+      "criterionEvidence": [
+        {
+          "index": 0,
+          "result": "passed",
+          "method": "review",
+          "reference": "gwhitdev product review 2026-10-02, private plan v23 criteria checked plus direct confirmation; reviewed candidate 297695fc6d5041b55936bda38552d9d40c5d0183, docs/m01/product-review.json records provenance and scope."
+        },
+        {
+          "index": 1,
+          "result": "passed",
+          "method": "review",
+          "reference": "gwhitdev product review 2026-10-02, private plan v23 criteria checked plus direct confirmation; reviewed candidate 297695fc6d5041b55936bda38552d9d40c5d0183, docs/m01/product-review.json records provenance and scope."
+        }
+      ]
+    },
+    {
+      "id": "M01-T03",
+      "candidateSha": "297695fc6d5041b55936bda38552d9d40c5d0183",
+      "patch": {
+        "status": "verified",
+        "owner": "gwhitdev (product workflow review); Codex technical assessment",
+        "notes": "Product workflow review completed by gwhitdev on 2 October 2026: both acceptance criteria checked in private plan v23, followed by direct confirmation 'reviewed'. Six-role interaction direction, navigation catalogue and defined loading/error/offline/conflict states accepted for M01. Driver fix has 14/14 regressions and browser checks. This approves prototype design; production accessibility, role/API security and native mobile behaviour require later acceptance.",
+        "evidence": "Product approval: gwhitdev checked both M01-T03 criteria in private mini-site plan v23 and confirmed 'reviewed' on 2026-10-02. Candidate 297695fc6d5041b55936bda38552d9d40c5d0183: https://github.com/gwhitdev/tms/blob/297695fc6d5041b55936bda38552d9d40c5d0183/docs/m01/workflows.md and https://github.com/gwhitdev/tms/blob/297695fc6d5041b55936bda38552d9d40c5d0183/docs/m01/evidence/driver-queue-fix/README.md . PR https://github.com/gwhitdev/tms/pull/1",
+        "blocker": "",
+        "checks": [
+          0,
+          1
+        ]
+      },
+      "criterionEvidence": [
+        {
+          "index": 0,
+          "result": "passed",
+          "method": "review",
+          "reference": "gwhitdev product review 2026-10-02, private plan v23 criteria checked plus direct confirmation; reviewed candidate 297695fc6d5041b55936bda38552d9d40c5d0183, docs/m01/product-review.json records provenance and scope."
+        },
+        {
+          "index": 1,
+          "result": "passed",
+          "method": "review",
+          "reference": "gwhitdev product review 2026-10-02, private plan v23 criteria checked plus direct confirmation; reviewed candidate 297695fc6d5041b55936bda38552d9d40c5d0183, docs/m01/product-review.json records provenance and scope."
+        }
+      ]
     }
   ]
 }

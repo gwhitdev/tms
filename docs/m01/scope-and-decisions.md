@@ -1,12 +1,12 @@
 # M01 operating scope and decision register
 
-Status: design candidate, 2 October 2026. UK and .NET/PostgreSQL/React are confirmed directly by the product owner. Other numbers and providers remain open. This document records ownership and downstream gates; it does not certify compliance or performance.
+Status: M01 product review completed on 2 October 2026. UK, parcels and .NET/PostgreSQL/React are confirmed directly by the product owner. Initial scale is 1 tenant, 10 drivers and 250 deliveries per day. Other operating details and providers remain open. This document records ownership and downstream gates; it does not certify compliance or performance.
 
 ## Confirmed scope
 
 Freight and delivery cover quotes, bookings, collections, deliveries, transfers, returns, multi-leg consignments, depot planning, owned/subcontracted resources, route optimisation, driver execution/POD, finance, ERP integration and reporting. A tenant is the security/contract boundary; depots and business units are tenant-owned. A customer or subcontractor is not automatically a tenant administrator.
 
-The first operating country is the UK. Currency and timezone display can default to GBP and Europe/London after tenant configuration, while immutable timestamps are UTC and time-window inputs retain the originating timezone. Freight dimensions/quantities retain units. Native Android and iPhone devices are the first tracking sources; vehicle telematics follow through the tracking-source contract.
+The first operating country is the UK. Launch cargo is parcels, with 1 initial tenant, 10 drivers and approximately 250 deliveries per day. These figures define the first deployment workload; they are not a measured capacity guarantee. Currency and timezone display can default to GBP and Europe/London after tenant configuration, while immutable timestamps are UTC and time-window inputs retain the originating timezone. Freight dimensions/quantities retain units. Native Android and iPhone devices are the first tracking sources; vehicle telematics follow through the tracking-source contract.
 
 The platform has distinct tenant and system administration, registered navigation with administrator-managed labels/order/visibility, and an independent UI deployment console. Application services, PostgreSQL, storage and operational infrastructure are container deployable. Driver apps run on phones; build infrastructure can be containerised but device runtimes cannot be server containers.
 
@@ -19,8 +19,8 @@ Shared scheduling owns transport obligations, stops, time windows, resource elig
 | ID | Decision | Accountable role | Proposed direction / evidence needed | Gate |
 |---|---|---|---|---|
 | UK-01 | GB/NI coverage, vehicle classes, journeys and regulated cargo | Product owner + transport compliance lead | UK confirmed; qualify the applicable policies per operation. No universal UK hours rule. | Before jurisdiction-specific booking/dispatch rules in M03–M05 |
-| CARGO-01 | Pallets/parcels/bulk, ADR, temperature control, dimensional/loading rules | Product owner + operations lead | General freight examples are fixtures. Actual cargo restrictions require agreement. | M03 data model and M05 feasibility |
-| SCALE-01 | Initial/peak tenants, depots, drivers, jobs/day, concurrent users, GPS devices | Product owner + engineering lead | No capacity promises. Choose representative, peak and stress workloads and test data. | M02 sizing; M05/M06/M10 load acceptance |
+| CARGO-01 | Pallets/parcels/bulk, ADR, temperature control, dimensional/loading rules | Product owner + operations lead | Parcels confirmed by gwhitdev on 2 October 2026. Dimensions, handling and restricted/regulated parcel policies still require agreement. General freight examples remain fixtures. | M03 data model and M05 feasibility |
+| SCALE-01 | Initial/peak tenants, depots, drivers, jobs/day, concurrent users, GPS devices | Product owner + engineering lead | Launch baseline confirmed: 1 tenant, 10 drivers, 250 deliveries/day. Depots, peaks, concurrent users, growth and measured performance remain to be agreed. No capacity promises. | M02 sizing; M05/M06/M10 load acceptance |
 | HOST-01 | Production operator, host/cloud, certificates, storage and support model | System operator + engineering lead | Local containers confirmed for build control. Compose development path; production topology depends on availability targets. | M02 deployment topology and M09 production installer |
 | SLO-01 | Availability, response/optimisation latency, GPS freshness, RPO/RTO | Product owner + operator | Define numeric targets and measurement windows; record exclusions explicitly. | M02 observability design; M09/M10 rehearsals |
 | MAP-01 | UK road/geocode provider, truck capabilities, traffic, matrix limits, licensing | Operations lead + engineering lead | Capability matrix and representative UK routes; keep provider failure/manual planning usable. | M05 provider adapter |
@@ -35,7 +35,7 @@ The product owner is `gwhitdev` for this initial review. Role assignments above 
 
 ## Acceptance review
 
-M01-T01 criterion 0: the decision register records owners and downstream effects. Criterion 1: review the freight scope and mixed-service adapter design above. Original freight/mixed direction is confirmed; approval of this detailed model remains pending. No business decision is treated as approved merely because it appears in this file.
+M01-T01 criterion 0: the decision register records owners and downstream effects. Criterion 1: review the freight scope and mixed-service adapter design above. Both M01-T01 acceptance criteria were checked by gwhitdev in private mini-site plan version 23; the owner then confirmed “reviewed” in this chat on 2 October 2026. The detailed freight scope and mixed-service extension model are approved for M01. Unresolved operating decisions retain their downstream gates. See [product review record](product-review.json).
 
 ## Primary references
 

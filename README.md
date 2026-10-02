@@ -4,7 +4,7 @@ Freight and delivery first, with a documented path to mixed transport. Initial o
 
 This repository starts with milestone M01: executable specification, domain contracts, workflow prototypes and a traceable TDD delivery foundation. Application features remain unimplemented until their acceptance evidence is recorded.
 
-Start with the [M01 review pack](docs/m01/README.md). The original site-assistant scope candidate is preserved under [prior-candidate](docs/m01/prior-candidate/README.md). Detailed scope and workflow review remain pending; future implementation tasks begin unstarted.
+Start with the [M01 review pack](docs/m01/README.md). The original site-assistant scope candidate is preserved under [prior-candidate](docs/m01/prior-candidate/README.md). M01 product review is complete. M02-T01 is building the local container foundation and initial installer; identity, tenant administration and operational capabilities retain their later task gates.
 
 ## Run the executable specification
 

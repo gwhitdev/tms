@@ -1,6 +1,6 @@
 # ADR 0001 — .NET modular application, PostgreSQL and React
 
-Status: stack confirmed; detailed architecture proposed for M01 review.
+Status: accepted as the M01 implementation direction by product owner gwhitdev on 2 October 2026. The stack and design baseline are approved; production security, performance and recovery claims require their later implementation evidence.
 
 ## Decision
 

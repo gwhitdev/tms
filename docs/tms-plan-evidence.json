@@ -3,28 +3,6 @@
   "baselineId": "freight-tms-baseline-01",
   "entries": [
     {
-      "id": "M01-T01",
-      "candidateSha": "5bc8a408bcf02f19cfbbd2818118eba965f0b529",
-      "patch": {
-        "status": "review",
-        "owner": "gwhitdev (product owner); specialist roles in decision register",
-        "notes": "UK and .NET/PostgreSQL/React confirmed directly. Scope register assigns accountable roles and downstream gates for cargo, scale, hosting, availability, providers, devices and policies. Detailed freight/mixed design awaits product review; prior assistant candidate retained.",
-        "evidence": "Assessed candidate 5bc8a408bcf02f19cfbbd2818118eba965f0b529: https://github.com/gwhitdev/tms/blob/5bc8a408bcf02f19cfbbd2818118eba965f0b529/docs/m01/scope-and-decisions.md . Draft review: https://github.com/gwhitdev/tms/pull/1",
-        "blocker": "",
-        "checks": [
-          0
-        ]
-      },
-      "criterionEvidence": [
-        {
-          "index": 0,
-          "result": "passed",
-          "method": "review",
-          "reference": "5bc8a408bcf02f19cfbbd2818118eba965f0b529 docs/m01/scope-and-decisions.md — reviewed decision ownership/gates; named specialist appointments pending."
-        }
-      ]
-    },
-    {
       "id": "M01-T02",
       "candidateSha": "5bc8a408bcf02f19cfbbd2818118eba965f0b529",
       "patch": {
@@ -52,19 +30,6 @@
           "reference": "5bc8a408bcf02f19cfbbd2818118eba965f0b529 docs/m01/evidence/domain-parent-check.log — 17/17 reservation, partial-delivery, agreed-price and related contract examples."
         }
       ]
-    },
-    {
-      "id": "M01-T03",
-      "candidateSha": "5bc8a408bcf02f19cfbbd2818118eba965f0b529",
-      "patch": {
-        "status": "review",
-        "owner": "gwhitdev and representative role reviewers",
-        "notes": "Six-role fixture explorer, workflow spec and registered navigation catalogue ready. Local interaction checks cover capacity, offline POD, route denial, menu edits/revert and installer recovery. Product/role review and accessibility evaluation remain pending.",
-        "evidence": "Assessed candidate 5bc8a408bcf02f19cfbbd2818118eba965f0b529: https://github.com/gwhitdev/tms/blob/5bc8a408bcf02f19cfbbd2818118eba965f0b529/docs/m01/workflows.md . Draft review: https://github.com/gwhitdev/tms/pull/1",
-        "blocker": "",
-        "checks": []
-      },
-      "criterionEvidence": []
     },
     {
       "id": "M01-T04",

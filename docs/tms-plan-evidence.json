@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "baselineId": "freight-tms-baseline-01",
+  "entries": [
+    {
+      "id": "M01-T01",
+      "candidateSha": "5bc8a408bcf02f19cfbbd2818118eba965f0b529",
+      "patch": {
+        "status": "review",
+        "owner": "gwhitdev (product owner); specialist roles in decision register",
+        "notes": "UK and .NET/PostgreSQL/React confirmed directly. Scope register assigns accountable roles and downstream gates for cargo, scale, hosting, availability, providers, devices and policies. Detailed freight/mixed design awaits product review; prior assistant candidate retained.",
+        "evidence": "Assessed candidate 5bc8a408bcf02f19cfbbd2818118eba965f0b529: https://github.com/gwhitdev/tms/blob/5bc8a408bcf02f19cfbbd2818118eba965f0b529/docs/m01/scope-and-decisions.md . Draft review: https://github.com/gwhitdev/tms/pull/1",
+        "blocker": "",
+        "checks": [
+          0
+        ]
+      },
+      "criterionEvidence": [
+        {
+          "index": 0,
+          "result": "passed",
+          "method": "review",
+          "reference": "5bc8a408bcf02f19cfbbd2818118eba965f0b529 docs/m01/scope-and-decisions.md — reviewed decision ownership/gates; named specialist appointments pending."
+        }
+      ]
+    },
+    {
+      "id": "M01-T02",
+      "candidateSha": "5bc8a408bcf02f19cfbbd2818118eba965f0b529",
+      "patch": {
+        "status": "verified",
+        "owner": "Codex technical assessment; gwhitdev design review",
+        "notes": "Context ownership, glossary, contracts and lifecycle diagrams published. 17/17 executable in-memory domain examples pass after 0/17 RED. PostgreSQL isolation/reservation, APIs and production behaviour remain later acceptance work.",
+        "evidence": "Assessed candidate 5bc8a408bcf02f19cfbbd2818118eba965f0b529: https://github.com/gwhitdev/tms/blob/5bc8a408bcf02f19cfbbd2818118eba965f0b529/docs/m01/evidence/README.md . Draft review: https://github.com/gwhitdev/tms/pull/1",
+        "blocker": "",
+        "checks": [
+          0,
+          1
+        ]
+      },
+      "criterionEvidence": [
+        {
+          "index": 0,
+          "result": "passed",
+          "method": "review",
+          "reference": "5bc8a408bcf02f19cfbbd2818118eba965f0b529 docs/m01/domain-model.md and contracts.json — reviewed nine contexts, owned ports, five commands, twelve events and lifecycle diagrams."
+        },
+        {
+          "index": 1,
+          "result": "passed",
+          "method": "automated",
+          "reference": "5bc8a408bcf02f19cfbbd2818118eba965f0b529 docs/m01/evidence/domain-parent-check.log — 17/17 reservation, partial-delivery, agreed-price and related contract examples."
+        }
+      ]
+    },
+    {
+      "id": "M01-T03",
+      "candidateSha": "5bc8a408bcf02f19cfbbd2818118eba965f0b529",
+      "patch": {
+        "status": "review",
+        "owner": "gwhitdev and representative role reviewers",
+        "notes": "Six-role fixture explorer, workflow spec and registered navigation catalogue ready. Local interaction checks cover capacity, offline POD, route denial, menu edits/revert and installer recovery. Product/role review and accessibility evaluation remain pending.",
+        "evidence": "Assessed candidate 5bc8a408bcf02f19cfbbd2818118eba965f0b529: https://github.com/gwhitdev/tms/blob/5bc8a408bcf02f19cfbbd2818118eba965f0b529/docs/m01/workflows.md . Draft review: https://github.com/gwhitdev/tms/pull/1",
+        "blocker": "",
+        "checks": []
+      },
+      "criterionEvidence": []
+    },
+    {
+      "id": "M01-T04",
+      "candidateSha": "5bc8a408bcf02f19cfbbd2818118eba965f0b529",
+      "patch": {
+        "status": "verified",
+        "owner": "Codex technical assessment",
+        "notes": "63 requirements/126 criteria and 46 tasks/93 criteria mapped; 29/29 rejecting traceability tests and inventory check pass. CI retains tested-SHA reports without auto-verifying. Production implementation statuses remain unstarted.",
+        "evidence": "Assessed candidate 5bc8a408bcf02f19cfbbd2818118eba965f0b529: https://github.com/gwhitdev/tms/blob/5bc8a408bcf02f19cfbbd2818118eba965f0b529/docs/m01/evidence/traceability-parent-check.log . Draft review: https://github.com/gwhitdev/tms/pull/1",
+        "blocker": "",
+        "checks": [
+          0,
+          1
+        ]
+      },
+      "criterionEvidence": [
+        {
+          "index": 0,
+          "result": "passed",
+          "method": "automated",
+          "reference": "5bc8a408bcf02f19cfbbd2818118eba965f0b529 docs/m01/traceability.json, tdd-delivery.md, .github/workflows/ci.yml and evidence/traceability-inventory.log — complete links and CI evidence contract."
+        },
+        {
+          "index": 1,
+          "result": "passed",
+          "method": "automated",
+          "reference": "5bc8a408bcf02f19cfbbd2818118eba965f0b529 docs/m01/evidence/traceability-parent-check.log — 29/29 rejecting false progress and unsupported verification; inventory verified=0."
+        }
+      ]
+    }
+  ]
+}

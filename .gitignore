@@ -1,0 +1,13 @@
+**/bin/
+**/obj/
+node_modules/
+test-results/
+.env*
+!.env.example
+*.user
+*.suo
+*.sqlite*
+*.log
+!docs/m01/evidence/*.log
+.DS_Store
+secrets/

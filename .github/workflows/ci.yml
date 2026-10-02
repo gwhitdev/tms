@@ -1,0 +1,63 @@
+name: M01 specification and contract checks
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: m01-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  specification:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        shell: bash
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+      DOTNET_NOLOGO: '1'
+    steps:
+      - name: Check out the tested commit
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '24.19.0'
+      - name: Set up the contract-example SDK
+        uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4.3.1
+        with:
+          dotnet-version: '10.0.400'
+      - name: Prepare evidence directory
+        run: mkdir -p evidence
+      - name: Test traceability rejection and coverage rules
+        run: node --test --test-reporter=tap tests/traceability.test.mjs | tee evidence/traceability-tests.tap
+      - name: Check baseline mappings and declared example sources
+        run: node scripts/check-traceability.mjs | tee evidence/traceability-inventory.log
+      - name: Execute isolated .NET domain contract examples
+        run: dotnet run --project tests/Tms.Contracts.Tests/Tms.Contracts.Tests.csproj --configuration Release | tee evidence/domain-contract-examples.log
+      - name: Record the tested SHA and the limited assessment scope
+        run: |
+          node --input-type=module <<'NODE'
+          import {execFileSync} from 'node:child_process';
+          import {writeFileSync} from 'node:fs';
+          const candidateSha=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
+          if(!/^[a-f0-9]{40}$/.test(candidateSha))throw Error('Invalid tested commit');
+          const report={schemaVersion:1,baselineId:'freight-tms-baseline-01',repository:'gwhitdev/tms',candidateSha,classification:'m01_design_and_contract_examples_only',productionAcceptance:'not_assessed',automaticVerification:false,runId:process.env.GITHUB_RUN_ID,runAttempt:process.env.GITHUB_RUN_ATTEMPT,reports:['traceability-tests.tap','traceability-inventory.log','domain-contract-examples.log']};
+          writeFileSync('evidence/assessment-scope.json',JSON.stringify(report,null,2)+'\n');
+          NODE
+      - name: Retain reports for criterion assessment
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: m01-reports-${{ github.sha }}-${{ github.run_attempt }}
+          path: evidence/
+          if-no-files-found: warn
+          retention-days: 30

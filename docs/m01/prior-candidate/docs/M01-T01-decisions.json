@@ -1,0 +1,129 @@
+{
+  "task": "M01-T01",
+  "baseline": "freight-tms-baseline-01",
+  "status": "candidate_for_review",
+  "acceptance_complete": false,
+  "repository": {
+    "url": "https://github.com/gwhitdev/tms",
+    "status": "confirmed_in_context"
+  },
+  "decisions": [
+    {
+      "id": "D01-countries",
+      "source": "D01",
+      "topic": "countries",
+      "status": "open",
+      "owner": {"accountable_role": "Compliance lead", "assignment_status": "proposed", "person": null},
+      "inputs": ["countries", "driver_rules", "compliance_evidence", "cross_border", "units", "currencies", "timezones"],
+      "question": "Which launch countries and cross-border lanes apply, and which driver hours, licensing, documentation and operating rules must be supported?",
+      "delivery_effect": "Blocks jurisdiction-specific validation and country-support claims; determines routing coverage and regional configuration.",
+      "required_evidence": "Named compliance reviewer signs off a country/lane matrix, applicable rules and dated supporting sources."
+    },
+    {
+      "id": "D01-cargo",
+      "source": "D01",
+      "topic": "cargo",
+      "status": "open",
+      "owner": {"accountable_role": "Freight operations lead", "assignment_status": "proposed", "person": null},
+      "inputs": ["cargo_types", "restrictions", "handling", "capacity_units"],
+      "question": "Which cargo types are allowed or excluded, including dangerous, temperature-controlled, oversized and high-value goods, and what handling and evidence rules apply?",
+      "delivery_effect": "Blocks final cargo validation, resource suitability and booking acceptance rules; no regulated cargo support can be assumed.",
+      "required_evidence": "Operations-approved cargo inclusion/exclusion matrix with compliance review of regulated classes and required handling evidence."
+    },
+    {
+      "id": "D02-scale",
+      "source": "D02",
+      "topic": "scale",
+      "status": "open",
+      "owner": {"accountable_role": "Operations planning lead", "assignment_status": "proposed", "person": null},
+      "inputs": ["tenants", "depots", "fleet", "daily_jobs", "concurrent_users", "devices", "gps_frequency", "retention", "growth", "peak_load"],
+      "question": "What are launch, peak and growth volumes for tenants, depots, vehicles, daily jobs, concurrent users and active devices, including telemetry frequency and retention?",
+      "delivery_effect": "Blocks capacity sizing, performance acceptance thresholds and worker/projection sizing.",
+      "required_evidence": "Agreed launch/peak/growth workload table with units, measurement windows and representative dispatch/device scenarios."
+    },
+    {
+      "id": "D-hosting",
+      "source": "SCOPE-04",
+      "topic": "hosting",
+      "status": "open",
+      "owner": {"accountable_role": "Platform lead", "assignment_status": "proposed", "person": null},
+      "inputs": ["hosting_model", "provider", "regions", "data_residency", "support_responsibility", "budget"],
+      "question": "Is hosting managed cloud, private cloud or on-premises; which provider/regions, residency constraints, budget and operational responsibilities apply?",
+      "delivery_effect": "Blocks infrastructure and managed-service selection; must align with jurisdiction and recovery decisions.",
+      "required_evidence": "Approved hosting decision with residency/security review, cost constraints and an operational responsibility matrix."
+    },
+    {
+      "id": "D02-availability",
+      "source": "D02",
+      "topic": "availability",
+      "status": "open",
+      "owner": {"accountable_role": "Service operations lead", "assignment_status": "proposed", "person": null},
+      "inputs": ["availability_target", "service_hours", "measurement_window", "rto", "rpo", "offline_tolerance", "maintenance_windows"],
+      "question": "What availability target, service hours, measurement/exclusion rules, recovery time objective (RTO), recovery point objective (RPO) and offline tolerance are required?",
+      "delivery_effect": "Blocks resilience design and recovery acceptance criteria; no availability or disaster-recovery guarantees are established.",
+      "required_evidence": "Business-approved service objectives with per-critical-workflow recovery targets and a restore/failover test plan."
+    },
+    {
+      "id": "D03-routing",
+      "source": "D03",
+      "topic": "routing",
+      "status": "open",
+      "owner": {"accountable_role": "Routing technical lead", "assignment_status": "proposed", "person": null},
+      "inputs": ["provider", "coverage", "road_suitability", "vehicle_restrictions", "licensing", "quotas", "outage_policy"],
+      "question": "Which mapping/geocoding/routing provider covers the selected lanes and freight vehicle restrictions, at acceptable licensing, quota and outage terms?",
+      "delivery_effect": "Blocks provider adapter contracts and road-suitability claims; depends on countries, cargo and fleet characteristics.",
+      "required_evidence": "Reviewed provider comparison and representative lane/vehicle routing results, including unsupported restrictions and fallback policy."
+    },
+    {
+      "id": "D03-erp",
+      "source": "D03",
+      "topic": "erp",
+      "status": "open",
+      "owner": {"accountable_role": "Integration lead", "assignment_status": "proposed", "person": null},
+      "inputs": ["initial_adapters", "field_ownership", "sync_direction", "external_ids", "status_mapping", "reconciliation", "gps_provider"],
+      "question": "Which ERP/accounting adapters and GPS/device providers are needed first; who owns each customer, order, rate, invoice, payment and telemetry field, and how are conflicts reconciled?",
+      "delivery_effect": "Blocks integration scope, anti-corruption mappings and financial reconciliation contracts; unknown statuses must not mutate domain state.",
+      "required_evidence": "Finance/operations-reviewed system-of-record matrix and versioned payload/status examples, retry/deduplication rules and outage reconciliation scenarios, without credentials."
+    },
+    {
+      "id": "D04-team",
+      "source": "D04",
+      "topic": "team",
+      "status": "open",
+      "owner": {"accountable_role": "Delivery sponsor", "assignment_status": "proposed", "person": null},
+      "inputs": ["delivery_team", "task_owner", "decision_owners", "approval_authority", "decision_dates"],
+      "question": "Who accepts each proposed decision-owner role, owns M01-T01, supplies the delivery team and has authority to approve scope?",
+      "delivery_effect": "Blocks accountable sign-off and delivery commitments; repository selection is already confirmed and is not reopened.",
+      "required_evidence": "Sponsor-confirmed named assignments, accepted responsibilities and decision due dates, plus named scope approvers."
+    }
+  ],
+  "scope": {
+    "requirements": ["SCOPE-01", "SCOPE-02", "SCOPE-03", "SCOPE-04"],
+    "freight_workflows": ["collections", "deliveries", "transfers", "returns", "multi_leg"],
+    "lifecycle": ["quotation", "booking", "validation", "planning", "dispatch", "execution", "proof_of_delivery", "billing", "reconciliation"],
+    "independent_states": ["operational", "delivery", "financial"],
+    "ownership_boundaries": ["tenant", "customer", "subcontractor"],
+    "extension": {
+      "shared_primitives": ["tasks", "stops", "resources", "schedules", "capacity"],
+      "freight_owned_fields": ["cargo_description", "weight", "volume", "handling_requirements"],
+      "passenger_owned_fields": ["seats", "boarding", "accessibility"],
+      "requires_existing_freight_record_changes": false,
+      "passenger_in_initial_scope": false,
+      "design": "M01-T01-scope.md"
+    }
+  },
+  "approvals": {
+    "freight_scope": {
+      "status": "pending",
+      "requested_role": "Product sponsor with freight operations lead",
+      "approved_by": null,
+      "evidence": null
+    },
+    "mixed_transport_extension": {
+      "status": "pending",
+      "requested_role": "Product sponsor with domain architecture lead",
+      "approved_by": null,
+      "evidence": null
+    }
+  }
+}

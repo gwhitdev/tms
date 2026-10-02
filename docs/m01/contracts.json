@@ -1,0 +1,1204 @@
+{
+  "schemaVersion": 1,
+  "baselineId": "freight-tms-baseline-01",
+  "milestoneId": "M01",
+  "repository": "gwhitdev/tms",
+  "reviewStatus": "candidate_for_owner_review",
+  "lastUpdated": "2026-10-02",
+  "confirmed": {
+    "initialCountry": "UK",
+    "applicationStack": [
+      ".NET",
+      "PostgreSQL",
+      "React"
+    ],
+    "initialServices": [
+      "freight",
+      "delivery"
+    ],
+    "extension": "mixed transport via separately owned service contexts",
+    "sdkForExamples": "10.0.400",
+    "targetFramework": "net10.0"
+  },
+  "boundaryPolicy": {
+    "deployment": "Modular application first; independent workers. Separate service deployments need explicit justification.",
+    "persistence": "Each context owns its schema/repositories. No direct cross-context persistence access.",
+    "publication": "Dispatch revalidates immutable proposal and authoritative booking/resource versions; shared application unit of work enlists Dispatch and Resources owning ports in one PostgreSQL transaction for run, commitments and each owner's outbox. Each owner writes its own tables.",
+    "security": "Tenant-qualified identity is required but is not authentication or authorisation. Server policy/RLS and all data-surface isolation need real implementation and database/API tests.",
+    "architectureVerification": "Context dependency/persistence checks are planned when production modules exist; these examples do not prove module isolation.",
+    "status": "design_not_production_implementation"
+  },
+  "boundedContexts": [
+    {
+      "id": "bookings",
+      "name": "Bookings",
+      "persistenceOwner": "bookings",
+      "proposedSchema": "bookings",
+      "aggregates": [
+        "Order",
+        "Consignment"
+      ],
+      "owns": [
+        "Operational customer/address snapshots",
+        "Cargo units and booked quantities",
+        "Freight legs and service obligations",
+        "Controlled booking revisions"
+      ],
+      "commands": [
+        "booking.validate",
+        "booking.confirm",
+        "booking.amend"
+      ],
+      "events": [
+        "booking.confirmed",
+        "booking.amended"
+      ],
+      "dependencies": [
+        "access command context",
+        "commercial agreed quote reference"
+      ],
+      "ports": [
+        "QuoteAgreementPort",
+        "BookingsCommandPort"
+      ],
+      "status": "design_candidate"
+    },
+    {
+      "id": "planning",
+      "name": "Planning",
+      "persistenceOwner": "planning",
+      "proposedSchema": "planning",
+      "aggregates": [
+        "RoutePlan",
+        "OptimisationRequest"
+      ],
+      "owns": [
+        "Immutable proposal versions",
+        "Stop sequence and feasibility",
+        "Constraint/provider provenance"
+      ],
+      "commands": [
+        "planning.propose",
+        "planning.replan",
+        "planning.approve"
+      ],
+      "events": [
+        "planning.plan_proposed",
+        "planning.plan_approved"
+      ],
+      "dependencies": [
+        "booking obligation projection",
+        "resource eligibility/capacity projection"
+      ],
+      "ports": [
+        "RoadRoutePort",
+        "GeocodePort",
+        "OptimiserPort",
+        "TransportObligationPort"
+      ],
+      "status": "design_candidate"
+    },
+    {
+      "id": "dispatch",
+      "name": "Dispatch",
+      "persistenceOwner": "dispatch",
+      "proposedSchema": "dispatch",
+      "aggregates": [
+        "Run",
+        "Allocation"
+      ],
+      "owns": [
+        "Exact approved plan reference",
+        "Driver/subcontractor instructions",
+        "Allocation acknowledgements"
+      ],
+      "commands": [
+        "dispatch.publish",
+        "dispatch.withdraw",
+        "dispatch.reallocate"
+      ],
+      "events": [
+        "dispatch.run_dispatched",
+        "dispatch.run_withdrawn"
+      ],
+      "dependencies": [
+        "planning approved version",
+        "bookings current version port",
+        "resources current eligibility/reservation port",
+        "access grants"
+      ],
+      "ports": [
+        "ReservationCommitPort",
+        "BookingRevisionPort",
+        "ResourceEligibilityPort"
+      ],
+      "status": "design_candidate"
+    },
+    {
+      "id": "execution",
+      "name": "Execution",
+      "persistenceOwner": "execution",
+      "proposedSchema": "execution",
+      "aggregates": [
+        "DeliveryProgress",
+        "DeliveryAttempt",
+        "ExecutionException"
+      ],
+      "owns": [
+        "Attempt and custody evidence",
+        "Delivered/outstanding quantities",
+        "Follow-up references and corrections"
+      ],
+      "commands": [
+        "execution.start_task",
+        "execution.record_delivery",
+        "execution.record_exception",
+        "execution.correct_attempt"
+      ],
+      "events": [
+        "execution.delivery_recorded",
+        "execution.exception_recorded"
+      ],
+      "dependencies": [
+        "dispatch run instruction",
+        "booked freight quantity contract",
+        "access command context"
+      ],
+      "ports": [
+        "EvidenceStoragePort",
+        "DispatchInstructionPort"
+      ],
+      "status": "design_candidate"
+    },
+    {
+      "id": "tracking",
+      "name": "Tracking",
+      "persistenceOwner": "tracking",
+      "proposedSchema": "tracking",
+      "aggregates": [
+        "TrackingSource",
+        "TrackingSession"
+      ],
+      "owns": [
+        "Source/driver/vehicle time-bound assignment",
+        "Authenticated location stream",
+        "Latest position with freshness"
+      ],
+      "commands": [
+        "tracking.register_source",
+        "tracking.start_session",
+        "tracking.end_session",
+        "tracking.ingest_position"
+      ],
+      "events": [
+        "tracking.source_changed"
+      ],
+      "dependencies": [
+        "access scoped device/service identity",
+        "resources driver/vehicle reference"
+      ],
+      "ports": [
+        "LocationIngestionPort",
+        "TelematicsAdapterPort"
+      ],
+      "status": "design_candidate"
+    },
+    {
+      "id": "resources",
+      "name": "Resources",
+      "persistenceOwner": "resources",
+      "proposedSchema": "resources",
+      "aggregates": [
+        "Driver",
+        "Vehicle",
+        "Trailer",
+        "Reservation"
+      ],
+      "owns": [
+        "Depots and eligibility",
+        "Shifts and availability",
+        "Maintenance/defects",
+        "Exclusive resource/task commitments"
+      ],
+      "commands": [
+        "resources.update_eligibility",
+        "resources.commit_reservations",
+        "resources.release_reservation",
+        "resources.amend_reservation"
+      ],
+      "events": [
+        "resources.availability_changed",
+        "resources.reservation_committed"
+      ],
+      "dependencies": [
+        "access tenant command context"
+      ],
+      "ports": [
+        "ResourceEligibilityPort",
+        "ReservationCommitPort"
+      ],
+      "status": "design_candidate"
+    },
+    {
+      "id": "commercial",
+      "name": "Commercial",
+      "persistenceOwner": "commercial",
+      "proposedSchema": "commercial",
+      "aggregates": [
+        "Quote",
+        "RateAgreement",
+        "Charge",
+        "Invoice",
+        "Credit",
+        "ReceiptReconciliation"
+      ],
+      "owns": [
+        "Billing party details",
+        "Agreed rate snapshots",
+        "Approved extra/supplier charges",
+        "Issued financial documents"
+      ],
+      "commands": [
+        "commercial.accept_quote",
+        "commercial.approve_charge",
+        "commercial.issue_invoice",
+        "commercial.issue_credit",
+        "commercial.reconcile_receipt"
+      ],
+      "events": [
+        "commercial.charge_approved",
+        "commercial.invoice_issued"
+      ],
+      "dependencies": [
+        "booking/execution facts",
+        "access approval grants"
+      ],
+      "ports": [
+        "AccountingPort",
+        "AgreedQuotePort"
+      ],
+      "status": "design_candidate"
+    },
+    {
+      "id": "integrations",
+      "name": "Integrations",
+      "persistenceOwner": "integrations",
+      "proposedSchema": "integrations",
+      "aggregates": [
+        "Connector",
+        "ExternalMapping",
+        "WebhookDelivery",
+        "ReconciliationCase"
+      ],
+      "owns": [
+        "External IDs and provider schemas",
+        "Inbound/outbound delivery receipts",
+        "Connector mapping/reconciliation"
+      ],
+      "commands": [
+        "integrations.receive_erp",
+        "integrations.configure_webhook",
+        "integrations.retry_delivery",
+        "integrations.reconcile"
+      ],
+      "events": [],
+      "dependencies": [
+        "owned public domain commands/events",
+        "access scoped service identity"
+      ],
+      "ports": [
+        "ErpAdapterPort",
+        "WebhookTransportPort"
+      ],
+      "status": "design_candidate"
+    },
+    {
+      "id": "access",
+      "name": "Tenant/Access",
+      "persistenceOwner": "access",
+      "proposedSchema": "access",
+      "aggregates": [
+        "Tenant",
+        "Membership",
+        "Grant",
+        "MenuConfiguration",
+        "SupportDelegation"
+      ],
+      "owns": [
+        "Tenant and depot/business-unit scopes",
+        "Scoped user/service/device identity",
+        "Registered menu labels/order/visibility",
+        "Privileged audit/delegation policy"
+      ],
+      "commands": [
+        "access.manage_membership",
+        "access.manage_menu",
+        "access.issue_scoped_identity",
+        "access.delegate_support"
+      ],
+      "events": [
+        "access.membership_changed",
+        "access.policy_changed"
+      ],
+      "dependencies": [],
+      "ports": [
+        "AuthenticatedActorPort",
+        "TenantPolicyPort"
+      ],
+      "status": "design_candidate"
+    }
+  ],
+  "valueTypes": [
+    {
+      "name": "TenantReference",
+      "fields": {
+        "tenantId": "nonempty UUID",
+        "id": "nonempty UUID"
+      },
+      "policy": "Validate against authenticated command tenant at every boundary. Default/empty references rejected by rules.",
+      "exampleImplemented": true
+    },
+    {
+      "name": "Quantity",
+      "fields": {
+        "value": "nonnegative decimal",
+        "unit": "explicit recognised unit code",
+        "dimension": "count|mass|volume|seats"
+      },
+      "policy": "Booked quantities positive; approved conversion retained; dimensions cannot be interchanged.",
+      "exampleImplemented": "integer cargo units and one decimal load dimension only"
+    },
+    {
+      "name": "TimeWindow",
+      "fields": {
+        "startUtc": "UTC instant",
+        "endUtc": "UTC instant",
+        "originTimezone": "IANA timezone",
+        "ambiguityPolicy": "explicit policy"
+      },
+      "policy": "Positive duration, half-open [start,end). Local/DST parsing must retain timezone and explicit ambiguity resolution.",
+      "exampleImplemented": "UTC interval only"
+    },
+    {
+      "name": "Coordinate",
+      "fields": {
+        "latitude": "decimal -90..90",
+        "longitude": "decimal -180..180"
+      },
+      "policy": "Accuracy and timestamps are source metadata; coordinate proximity does not prove delivery.",
+      "exampleImplemented": false
+    },
+    {
+      "name": "Money",
+      "fields": {
+        "amount": "nonnegative decimal",
+        "currency": "three uppercase currency letters"
+      },
+      "policy": "Currency precision/rounding policies reviewed. Credits use distinct document/amount semantics.",
+      "exampleImplemented": "GBP total example with two decimals, midpoint away from zero; no tax/FX policy"
+    }
+  ],
+  "commandContracts": [
+    {
+      "name": "dispatch.publish",
+      "version": 1,
+      "owner": "dispatch",
+      "required": [
+        "tenantId",
+        "actorId",
+        "requestId",
+        "planId",
+        "planVersion",
+        "expectedBookingVersions",
+        "expectedResourceVersions",
+        "reservationGroup",
+        "reason"
+      ],
+      "policy": "Revalidate current versions and feasibility through owning ports. Commit run, grouped Resources commitments and owner outboxes within one application unit of work. Conflict leaves no published run or partial reservation.",
+      "authorisation": "dispatch grant plus tenant/depot/subcontractor allocation scope; site/menu visibility irrelevant",
+      "exampleImplemented": false
+    },
+    {
+      "name": "resources.commit_reservations",
+      "version": 1,
+      "owner": "resources",
+      "required": [
+        "tenantId",
+        "taskId",
+        "reservationId",
+        "expectedVersion",
+        "resources",
+        "startUtc",
+        "endUtc",
+        "requestId"
+      ],
+      "policy": "No duplicate active task, repeated resource, cross-tenant reference or overlapping exclusive interval. Commit grouped driver/vehicle/trailer resources all or nothing. Expected version is not silently changed on retry.",
+      "exampleImplemented": "pure policy plus in-memory CAS only"
+    },
+    {
+      "name": "execution.record_delivery",
+      "version": 1,
+      "owner": "execution",
+      "required": [
+        "tenantId",
+        "consignmentId",
+        "taskId",
+        "attemptId",
+        "deliveredQuantity",
+        "unit",
+        "observedAtUtc",
+        "requestId"
+      ],
+      "optional": [
+        "evidenceReference",
+        "exceptionReason"
+      ],
+      "policy": "Positive delivered quantity requires evidence; incomplete/failed attempts require reason. Same attempt ID/body is idempotent; changed-body replay rejected. Validate current assignment and remaining quantity.",
+      "exampleImplemented": "integer quantity/evidence/reason/idempotency policy; no assignment/API/DB"
+    },
+    {
+      "name": "commercial.approve_charge",
+      "version": 1,
+      "owner": "commercial",
+      "required": [
+        "tenantId",
+        "chargeId",
+        "agreementId",
+        "rateVersion",
+        "quantityBasis",
+        "currency",
+        "approvalReference",
+        "actorId",
+        "requestId"
+      ],
+      "policy": "Agreed snapshot retained; approved extras use matching currency. Issued financial correction is a separate linked document.",
+      "exampleImplemented": "snapshot/extra charge total policy only"
+    },
+    {
+      "name": "integrations.receive_erp",
+      "version": 1,
+      "owner": "integrations",
+      "required": [
+        "connectorId",
+        "externalOperationId",
+        "externalStatus",
+        "payload",
+        "mappingVersion"
+      ],
+      "policy": "Server-verified scoped connector determines tenant. Anti-corruption mapping yields a reported milestone/owned command. Unknown status/schema/ID or conflict becomes reconciliation; never directly assigns operational/financial state.",
+      "exampleImplemented": "four exact illustrative statuses only"
+    }
+  ],
+  "eventEnvelope": {
+    "schemaVersion": 1,
+    "required": {
+      "eventId": "UUID stable across retry",
+      "tenantId": "UUID command scope",
+      "eventType": "registered owner event name",
+      "schemaVersion": "supported positive integer",
+      "producer": "registered bounded context",
+      "aggregate": {
+        "type": "registered aggregate type",
+        "tenantId": "same as envelope tenantId",
+        "id": "UUID"
+      },
+      "aggregateSequence": "positive integer increasing per producer/tenant/aggregate",
+      "occurredAtUtc": "ISO-8601 UTC instant",
+      "correlationId": "UUID",
+      "payload": "owner/version validated object"
+    },
+    "optional": {
+      "causationId": "UUID source command/event"
+    },
+    "executableSubset": [
+      "eventId",
+      "tenantId",
+      "aggregate tenant/id",
+      "eventType nonempty",
+      "schemaVersion exactly 1",
+      "aggregateSequence positive",
+      "occurredAtUtc offset zero",
+      "correlationId"
+    ],
+    "transportPolicy": {
+      "outbox": "Business mutation and owner's outbox atomically committed; retries preserve event ID.",
+      "inbox": "Consumer key includes tenant, producer and event ID; inbox receipt and mutation commit together.",
+      "ordering": "Ordered consumers retain/reconcile gaps; acknowledged sequences cannot reverse valid completion or duplicate a charge.",
+      "compatibility": "Unknown major/schema version enters reconciliation. Compatible optional additions need contract tests.",
+      "audit": "Sensitive changes record tenant, actor, before/after reference, time, reason/approval. No secrets/raw tokens in payloads."
+    },
+    "implemented": false
+  },
+  "integrationContracts": [
+    {
+      "eventType": "booking.confirmed",
+      "schemaVersion": 1,
+      "producer": "bookings",
+      "aggregateType": "Order",
+      "consumers": [
+        "planning",
+        "commercial"
+      ],
+      "payload": {
+        "orderId": "UUID",
+        "bookingVersion": "positive integer",
+        "consignments": "tenant-qualified references",
+        "taskObligations": "versioned freight obligations",
+        "agreementId": "optional tenant-qualified reference"
+      },
+      "rule": "Only a validated confirmed revision enters planning; preserve original commercial agreement.",
+      "status": "design_contract_not_implemented"
+    },
+    {
+      "eventType": "booking.amended",
+      "schemaVersion": 1,
+      "producer": "bookings",
+      "aggregateType": "Order",
+      "consumers": [
+        "planning",
+        "dispatch",
+        "commercial"
+      ],
+      "payload": {
+        "orderId": "UUID",
+        "previousVersion": "positive integer",
+        "newVersion": "positive integer",
+        "changedFields": "approved field names",
+        "reason": "required",
+        "impact": "revalidation required"
+      },
+      "rule": "Do not overwrite an already dispatched version; operational impact must be reviewed.",
+      "status": "design_contract_not_implemented"
+    },
+    {
+      "eventType": "planning.plan_proposed",
+      "schemaVersion": 1,
+      "producer": "planning",
+      "aggregateType": "RoutePlan",
+      "consumers": [
+        "dispatch"
+      ],
+      "payload": {
+        "planId": "UUID",
+        "planVersion": "positive integer",
+        "taskVersions": "qualified version references",
+        "resourceVersions": "qualified version references",
+        "constraintResults": "hard/soft violations",
+        "providerProvenance": "capabilities and request version"
+      },
+      "rule": "A proposal does not reserve resources or permit driver execution.",
+      "status": "design_contract_not_implemented"
+    },
+    {
+      "eventType": "planning.plan_approved",
+      "schemaVersion": 1,
+      "producer": "planning",
+      "aggregateType": "RoutePlan",
+      "consumers": [
+        "dispatch"
+      ],
+      "payload": {
+        "planId": "UUID",
+        "planVersion": "positive integer",
+        "approvalReference": "required",
+        "approver": "actor reference"
+      },
+      "rule": "Dispatch still revalidates booking/resource versions and commits reservations.",
+      "status": "design_contract_not_implemented"
+    },
+    {
+      "eventType": "resources.reservation_committed",
+      "schemaVersion": 1,
+      "producer": "resources",
+      "aggregateType": "Reservation",
+      "consumers": [
+        "dispatch",
+        "planning"
+      ],
+      "payload": {
+        "reservationId": "UUID",
+        "taskId": "tenant-qualified reference",
+        "resources": "kind/tenant/id references",
+        "interval": "half-open UTC [start,end)",
+        "version": "positive integer"
+      },
+      "rule": "State mutation and outbox commit with dispatch publication where relevant; consumers do not use events as exclusive-lock evidence.",
+      "status": "design_contract_not_implemented"
+    },
+    {
+      "eventType": "resources.availability_changed",
+      "schemaVersion": 1,
+      "producer": "resources",
+      "aggregateType": "Vehicle",
+      "consumers": [
+        "planning",
+        "dispatch"
+      ],
+      "payload": {
+        "resource": "kind/tenant/id reference",
+        "resourceVersion": "positive integer",
+        "eligibility": "reviewed status",
+        "effectiveInterval": "UTC interval",
+        "reason": "required"
+      },
+      "rule": "Resource kind/aggregate type is registered per actual resource; stale projections require authoritative revalidation.",
+      "status": "design_contract_not_implemented"
+    },
+    {
+      "eventType": "dispatch.run_dispatched",
+      "schemaVersion": 1,
+      "producer": "dispatch",
+      "aggregateType": "Run",
+      "consumers": [
+        "execution",
+        "integrations"
+      ],
+      "payload": {
+        "runId": "UUID",
+        "planId": "UUID",
+        "planVersion": "positive integer",
+        "assignedDriver": "qualified reference",
+        "reservationIds": "qualified references",
+        "instructionVersion": "positive integer"
+      },
+      "rule": "Run instructions reference exact committed plan; only allocated scope sees work.",
+      "status": "design_contract_not_implemented"
+    },
+    {
+      "eventType": "execution.delivery_recorded",
+      "schemaVersion": 1,
+      "producer": "execution",
+      "aggregateType": "DeliveryProgress",
+      "consumers": [
+        "bookings projection",
+        "commercial",
+        "integrations"
+      ],
+      "payload": {
+        "consignmentId": "qualified reference",
+        "taskId": "qualified reference",
+        "attemptId": "UUID",
+        "deliveredQuantity": "unit/value",
+        "outstandingQuantity": "unit/value",
+        "evidenceReference": "required for positive quantity",
+        "observedAtUtc": "UTC instant",
+        "exceptionReason": "required for incomplete attempt"
+      },
+      "rule": "Repeated attempt/event does not double-count goods or charges; incomplete result remains actionable.",
+      "status": "design_contract_not_implemented"
+    },
+    {
+      "eventType": "execution.exception_recorded",
+      "schemaVersion": 1,
+      "producer": "execution",
+      "aggregateType": "ExecutionException",
+      "consumers": [
+        "dispatch",
+        "commercial",
+        "integrations"
+      ],
+      "payload": {
+        "exceptionId": "UUID",
+        "taskId": "qualified reference",
+        "type": "registered exception type",
+        "reason": "required",
+        "outstandingQuantity": "unit/value",
+        "custody": "explicit goods location/status",
+        "followUpTaskId": "optional qualified reference"
+      },
+      "rule": "Exception/recovery work preserves original evidence; credit never rewrites quantity history.",
+      "status": "design_contract_not_implemented"
+    },
+    {
+      "eventType": "commercial.charge_approved",
+      "schemaVersion": 1,
+      "producer": "commercial",
+      "aggregateType": "Charge",
+      "consumers": [
+        "commercial invoicing worker",
+        "integrations"
+      ],
+      "payload": {
+        "chargeId": "UUID",
+        "agreementId": "qualified reference",
+        "snapshotVersion": "required",
+        "total": "amount/currency",
+        "approvalReference": "required",
+        "sourceFacts": "delivery/booking references"
+      },
+      "rule": "Invoice a source charge once; current tariffs cannot change approved charge.",
+      "status": "design_contract_not_implemented"
+    },
+    {
+      "eventType": "commercial.invoice_issued",
+      "schemaVersion": 1,
+      "producer": "commercial",
+      "aggregateType": "Invoice",
+      "consumers": [
+        "integrations",
+        "customer projection"
+      ],
+      "payload": {
+        "invoiceId": "UUID",
+        "number": "reviewed immutable number",
+        "chargeIds": "qualified references",
+        "total": "amount/currency",
+        "documentReference": "authorised storage reference"
+      },
+      "rule": "Issued totals immutable; accounting correction uses linked credit/debit document.",
+      "status": "design_contract_not_implemented"
+    },
+    {
+      "eventType": "tracking.source_changed",
+      "schemaVersion": 1,
+      "producer": "tracking",
+      "aggregateType": "TrackingSource",
+      "consumers": [
+        "tracking live projection",
+        "dispatch projection"
+      ],
+      "payload": {
+        "sourceId": "UUID",
+        "sourceType": "driver_device|vehicle_telematics",
+        "assignment": "time-bound driver/vehicle references",
+        "effectiveAtUtc": "UTC instant"
+      },
+      "rule": "Device/vehicle history uses one source contract; raw position stream is separately retained, never POD.",
+      "status": "design_contract_not_implemented"
+    }
+  ],
+  "positionIngestionContract": {
+    "owner": "tracking",
+    "version": 1,
+    "required": [
+      "sourceId",
+      "sessionId",
+      "sourceSequence",
+      "observedAtUtc",
+      "latitude",
+      "longitude",
+      "accuracyMetres"
+    ],
+    "serverFields": [
+      "authenticated tenant/assignment",
+      "receivedAtUtc"
+    ],
+    "policy": [
+      "Authenticate scoped source and current work session; do not trust a body tenantId.",
+      "Delayed positions append history without replacing newer live state.",
+      "Expose freshness/permission/offline state; do not infer work completion from GPS.",
+      "Vehicle telematics is a later adapter to source assignment contract."
+    ],
+    "implemented": false
+  },
+  "lifecyclePolicies": {
+    "operationalExample": {
+      "states": [
+        "Draft",
+        "Validated",
+        "ReadyForPlanning",
+        "Assigned",
+        "Dispatched",
+        "InProgress",
+        "Completed",
+        "PartiallyCompleted",
+        "Failed",
+        "Cancelled"
+      ],
+      "normalTransitions": [
+        "Draft>Validated",
+        "Validated>ReadyForPlanning",
+        "ReadyForPlanning>Assigned",
+        "Assigned>Dispatched",
+        "Assigned>ReadyForPlanning",
+        "Dispatched>InProgress",
+        "InProgress>Completed",
+        "InProgress>PartiallyCompleted",
+        "InProgress>Failed"
+      ],
+      "preDispatchCancellation": [
+        "Draft",
+        "Validated",
+        "ReadyForPlanning",
+        "Assigned"
+      ],
+      "approvedCompensatingCancellation": [
+        "Dispatched",
+        "InProgress"
+      ],
+      "terminal": [
+        "Completed",
+        "PartiallyCompleted",
+        "Failed",
+        "Cancelled"
+      ],
+      "scope": "Condensed composed lifecycle example; authority belongs to each context, not one cross-context aggregate."
+    },
+    "delivery": {
+      "result": [
+        "NotDelivered",
+        "Partial",
+        "Complete"
+      ],
+      "policy": "Immutable cumulative attempts; complete only when exact booked quantity has evidenced delivery; terminal operational attempts can generate new linked follow-up work."
+    },
+    "financial": {
+      "independentOfOperational": true,
+      "states": [
+        "QuoteDraft",
+        "AgreedRate",
+        "ChargesPending",
+        "ChargesApproved",
+        "InvoiceIssued",
+        "PartPaid",
+        "Paid",
+        "CreditIssued"
+      ],
+      "policy": "Delivery outcome, invoice issue and settlement are distinct; historical invoice corrected via linked documents.",
+      "implemented": false
+    }
+  },
+  "invariants": [
+    {
+      "id": "INV-TENANT",
+      "requirements": [
+        "DDD-02",
+        "SEC-02",
+        "SCOPE-03"
+      ],
+      "rule": "Command references belong to authenticated tenant and authorised allocation scope; UUID possession is not access."
+    },
+    {
+      "id": "INV-RESERVE",
+      "requirements": [
+        "DDD-02",
+        "PLAN-05"
+      ],
+      "rule": "Resource overlap/task duplication/version conflict rejects grouped commitment atomically; half-open intervals include operational buffers."
+    },
+    {
+      "id": "INV-DELIVERY",
+      "requirements": [
+        "SCOPE-01",
+        "DDD-02",
+        "MOBILE-05"
+      ],
+      "rule": "No overdelivery; outstanding retained; reason and evidence required; immutable attempt replay policy."
+    },
+    {
+      "id": "INV-PRICE",
+      "requirements": [
+        "DDD-02",
+        "BOOK-02",
+        "FIN-01",
+        "FIN-02"
+      ],
+      "rule": "Reproduce accepted snapshot; approve extras/currency; invoice correction separate."
+    },
+    {
+      "id": "INV-CAPACITY",
+      "requirements": [
+        "PLAN-02",
+        "PLAN-03"
+      ],
+      "rule": "Each stop's typed capacity profile must fit; a feasible final load does not excuse transient overload."
+    },
+    {
+      "id": "INV-EVENT",
+      "requirements": [
+        "DDD-03",
+        "DDD-04",
+        "API-03",
+        "API-04"
+      ],
+      "rule": "Validated metadata/version/tenant; durable inbox/outbox; unknown external status reconciles; reported milestones do not force state."
+    }
+  ],
+  "mixedServiceExtension": {
+    "futureOwner": "Passenger Services",
+    "currentScope": "Freight and delivery",
+    "passengerOwns": [
+      "passenger journey",
+      "boarding/alighting",
+      "seat demand",
+      "accessibility",
+      "passenger-specific evidence"
+    ],
+    "sharedContract": "Versioned transport obligation with task, stops, time windows, typed capacity and resource eligibility",
+    "rules": [
+      "Freight cargo/consignment fields and historical records stay freight-owned.",
+      "Planning adapters implement service-specific constraints.",
+      "Resources retains exclusive reservation consistency.",
+      "Mixed concurrent use requires explicit service/resource compatibility policy."
+    ],
+    "implemented": false
+  },
+  "executableExamples": {
+    "project": "examples/Tms.Contracts/Tms.Contracts.csproj",
+    "harness": "tests/Tms.Contracts.Tests/Tms.Contracts.Tests.csproj",
+    "command": "dotnet run --project tests/Tms.Contracts.Tests/Tms.Contracts.Tests.csproj --configuration Release",
+    "dependencies": "BCL only; no external package dependencies",
+    "evidence": {
+      "red": {
+        "passed": 0,
+        "failed": 17,
+        "logOutsideRepository": "../m01-domain-evidence/red.log"
+      },
+      "green": {
+        "passed": 17,
+        "failed": 0,
+        "logOutsideRepository": "../m01-domain-evidence/green.log"
+      },
+      "restoreLogOutsideRepository": "../m01-domain-evidence/restore.log",
+      "environmentFailureLogOutsideRepository": "../m01-domain-evidence/restore-environment.log",
+      "environmentFailureCountsAsRed": false
+    },
+    "scenarios": [
+      {
+        "id": "DDD-TENANT-01",
+        "name": "Tenant-qualified references",
+        "requirementIds": [
+          "DDD-02",
+          "SEC-02"
+        ],
+        "source": "tests/Tms.Contracts.Tests/Program.cs",
+        "layer": "executable_design_example",
+        "proof": "Pure reference mismatch rejection; not data-isolation/security proof."
+      },
+      {
+        "id": "DDD-STATE-01",
+        "name": "Explicit operational progression",
+        "requirementIds": [
+          "DDD-02",
+          "SCOPE-01"
+        ],
+        "source": "tests/Tms.Contracts.Tests/Program.cs",
+        "layer": "executable_design_example",
+        "proof": "Policy accepts declared lifecycle transitions."
+      },
+      {
+        "id": "DDD-STATE-02",
+        "name": "Terminal/cancellation transition guards",
+        "requirementIds": [
+          "DDD-02",
+          "SCOPE-01"
+        ],
+        "source": "tests/Tms.Contracts.Tests/Program.cs",
+        "layer": "executable_design_example",
+        "proof": "Policy rejects shortcuts/reopening/unapproved dispatched cancellation; no auth/compensation proof."
+      },
+      {
+        "id": "DDD-RESERVATION-01",
+        "name": "Exclusive overlaps and task duplication",
+        "requirementIds": [
+          "DDD-02",
+          "PLAN-05"
+        ],
+        "source": "tests/Tms.Contracts.Tests/Program.cs",
+        "layer": "executable_design_example",
+        "proof": "Pure commitment policy rejects overlapping exclusive resource and duplicate task."
+      },
+      {
+        "id": "DDD-RESERVATION-02",
+        "name": "Adjacent intervals and independent resources",
+        "requirementIds": [
+          "DDD-02",
+          "PLAN-05"
+        ],
+        "source": "tests/Tms.Contracts.Tests/Program.cs",
+        "layer": "executable_design_example",
+        "proof": "Half-open intervals/independent resources accepted."
+      },
+      {
+        "id": "DDD-RESERVATION-03",
+        "name": "Two competing CAS requests",
+        "requirementIds": [
+          "DDD-02",
+          "PLAN-05"
+        ],
+        "source": "tests/Tms.Contracts.Tests/Program.cs",
+        "layer": "executable_design_example",
+        "proof": "Two in-memory threads at same expected version yield one winner; not real PostgreSQL proof."
+      },
+      {
+        "id": "DDD-RESERVATION-04",
+        "name": "Reservation tenant/time validation",
+        "requirementIds": [
+          "DDD-02",
+          "SEC-02",
+          "PLAN-05"
+        ],
+        "source": "tests/Tms.Contracts.Tests/Program.cs",
+        "layer": "executable_design_example",
+        "proof": "Cross-tenant resources and zero-duration interval rejected."
+      },
+      {
+        "id": "DDD-DELIVERY-01",
+        "name": "Partial delivery and exact follow-up",
+        "requirementIds": [
+          "DDD-02",
+          "SCOPE-01",
+          "MOBILE-05"
+        ],
+        "source": "tests/Tms.Contracts.Tests/Program.cs",
+        "layer": "executable_design_example",
+        "proof": "Immutable history and exact outstanding integer quantity."
+      },
+      {
+        "id": "DDD-DELIVERY-02",
+        "name": "Quantity/evidence validation",
+        "requirementIds": [
+          "DDD-02",
+          "MOBILE-05"
+        ],
+        "source": "tests/Tms.Contracts.Tests/Program.cs",
+        "layer": "executable_design_example",
+        "proof": "Overdelivery, negative quantity and positive delivery without POD rejected."
+      },
+      {
+        "id": "DDD-DELIVERY-03",
+        "name": "Identical attempt retry",
+        "requirementIds": [
+          "DDD-02",
+          "MOBILE-02"
+        ],
+        "source": "tests/Tms.Contracts.Tests/Program.cs",
+        "layer": "executable_design_example",
+        "proof": "Pure duplicate attempt returns same state without double-count; no offline transport proof."
+      },
+      {
+        "id": "DDD-DELIVERY-04",
+        "name": "Changed-body replay rejection",
+        "requirementIds": [
+          "DDD-02",
+          "MOBILE-02",
+          "MOBILE-05"
+        ],
+        "source": "tests/Tms.Contracts.Tests/Program.cs",
+        "layer": "executable_design_example",
+        "proof": "Existing attempt ID cannot rewrite quantity/evidence."
+      },
+      {
+        "id": "DDD-DELIVERY-05",
+        "name": "Failed attempt outstanding quantity",
+        "requirementIds": [
+          "SCOPE-01",
+          "MOBILE-05"
+        ],
+        "source": "tests/Tms.Contracts.Tests/Program.cs",
+        "layer": "executable_design_example",
+        "proof": "Zero-delivery failure retains remainder and requires reason."
+      },
+      {
+        "id": "DDD-PRICE-01",
+        "name": "Agreed rate snapshot",
+        "requirementIds": [
+          "DDD-02",
+          "BOOK-02",
+          "FIN-01"
+        ],
+        "source": "tests/Tms.Contracts.Tests/Program.cs",
+        "layer": "executable_design_example",
+        "proof": "Pure GBP agreed price does not read revised tariff."
+      },
+      {
+        "id": "DDD-PRICE-02",
+        "name": "Approved same-currency extras",
+        "requirementIds": [
+          "DDD-02",
+          "FIN-01"
+        ],
+        "source": "tests/Tms.Contracts.Tests/Program.cs",
+        "layer": "executable_design_example",
+        "proof": "Unapproved/mismatched-currency extras rejected."
+      },
+      {
+        "id": "DDD-EVENT-01",
+        "name": "Envelope metadata boundary",
+        "requirementIds": [
+          "DDD-03",
+          "DDD-04"
+        ],
+        "source": "tests/Tms.Contracts.Tests/Program.cs",
+        "layer": "executable_design_example",
+        "proof": "Scope/sequence/UTC/schema metadata subset; not inbox/outbox durability."
+      },
+      {
+        "id": "DDD-EVENT-02",
+        "name": "Fail-closed ERP status mapping",
+        "requirementIds": [
+          "DDD-03",
+          "API-04"
+        ],
+        "source": "tests/Tms.Contracts.Tests/Program.cs",
+        "layer": "executable_design_example",
+        "proof": "Recognised external delivery maps to reported milestone; unknown string rejected."
+      },
+      {
+        "id": "PLAN-LOAD-01",
+        "name": "Every-stop capacity",
+        "requirementIds": [
+          "PLAN-02",
+          "PLAN-03"
+        ],
+        "source": "tests/Tms.Contracts.Tests/Program.cs",
+        "layer": "executable_design_example",
+        "proof": "Single capacity dimension rejects transient overload and underflow."
+      }
+    ],
+    "limitations": [
+      "No production features/API/UI implemented by examples.",
+      "No PostgreSQL concurrency/RLS/recovery assurance.",
+      "No server authentication/authorisation or external API/webhook transport proof.",
+      "No optimiser/road capability validation.",
+      "No real Android/iPhone GPS/offline/POD trials.",
+      "No tax, legal compliance or all-currency determination.",
+      "No restore/migration/deployment/usability/accessibility acceptance."
+    ]
+  },
+  "requiredFollowUpTests": [
+    {
+      "layer": "PostgreSQL integration",
+      "cases": [
+        "Two connections competing for same resource/task",
+        "Atomic multi-resource rollback",
+        "Stale proposal/eligibility versions",
+        "Cross-tenant data/RLS surfaces",
+        "Crash after commit before publish",
+        "Consumer gap/replay recovery"
+      ],
+      "status": "planned"
+    },
+    {
+      "layer": "API/security",
+      "cases": [
+        "Server-derived tenant and role/allocation grants",
+        "Subcontractor/customer restricted evidence",
+        "Idempotency key changed payload",
+        "External schema/status reconciliation",
+        "Signed webhook retry/replay"
+      ],
+      "status": "planned"
+    },
+    {
+      "layer": "Mobile/provider",
+      "cases": [
+        "Offline attempt replay without duplicate goods",
+        "Real Android/iPhone background GPS interruption",
+        "Device revoked during session",
+        "Old location arriving after new",
+        "Road provider hard-constraint failure"
+      ],
+      "status": "planned"
+    },
+    {
+      "layer": "Architecture",
+      "cases": [
+        "No cross-context persistence references",
+        "No module dependency cycles",
+        "Provider adapter replacement without domain change"
+      ],
+      "status": "planned"
+    }
+  ]
+}

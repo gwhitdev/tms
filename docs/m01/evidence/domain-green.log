@@ -1,0 +1,19 @@
+PASS DDD-TENANT-01 | tenant-qualified references reject mismatched ownership
+PASS DDD-STATE-01 | booking lifecycle progresses through explicit transitions
+PASS DDD-STATE-02 | terminal states and unapproved dispatched cancellation are rejected
+PASS DDD-RESERVATION-01 | overlapping exclusive resource commitments are rejected
+PASS DDD-RESERVATION-02 | half-open adjacent intervals and independent resources are allowed
+PASS DDD-RESERVATION-03 | two in-memory CAS contenders at one version have one winner
+PASS DDD-RESERVATION-04 | cross-tenant resources and invalid time ranges cannot be reserved
+PASS DDD-DELIVERY-01 | partial deliveries preserve history and exact follow-up quantity
+PASS DDD-DELIVERY-02 | over-delivery, negative quantities and missing POD are rejected
+PASS DDD-DELIVERY-03 | retrying the identical delivery attempt is idempotent
+PASS DDD-DELIVERY-04 | changed attempt IDs cannot rewrite evidence or quantities
+PASS DDD-DELIVERY-05 | failed attempts preserve cargo outstanding and require a reason
+PASS DDD-PRICE-01 | an agreed GBP rate remains reproducible after tariff changes
+PASS DDD-PRICE-02 | extras require approval and matching currency
+PASS DDD-EVENT-01 | integration envelopes carry valid scope and positive aggregate sequence
+PASS DDD-EVENT-02 | ERP statuses map to reported milestones and unknown values fail closed
+PASS PLAN-LOAD-01 | capacity is checked at every stop, including a transient overload
+RESULT passed=17 failed=0 total=17
+LIMITATION: in-memory contract examples; no PostgreSQL, tenant security, real-device, routing-provider or production acceptance assurance.

@@ -1,0 +1,19 @@
+FAIL DDD-TENANT-01 | NotImplementedException: DDD-TENANT-01
+FAIL DDD-STATE-01 | NotImplementedException: DDD-STATE
+FAIL DDD-STATE-02 | NotImplementedException: DDD-STATE
+FAIL DDD-RESERVATION-01 | NotImplementedException: DDD-RESERVATION
+FAIL DDD-RESERVATION-02 | NotImplementedException: DDD-RESERVATION
+FAIL DDD-RESERVATION-03 | AggregateException: One or more errors occurred. (DDD-RESERVATION-03) (DDD-RESERVATION-03)
+FAIL DDD-RESERVATION-04 | NotImplementedException: DDD-RESERVATION
+FAIL DDD-DELIVERY-01 | NotImplementedException: DDD-DELIVERY
+FAIL DDD-DELIVERY-02 | NotImplementedException: DDD-DELIVERY
+FAIL DDD-DELIVERY-03 | NotImplementedException: DDD-DELIVERY
+FAIL DDD-DELIVERY-04 | NotImplementedException: DDD-DELIVERY
+FAIL DDD-DELIVERY-05 | NotImplementedException: DDD-DELIVERY
+FAIL DDD-PRICE-01 | NotImplementedException: DDD-PRICE
+FAIL DDD-PRICE-02 | NotImplementedException: DDD-PRICE
+FAIL DDD-EVENT-01 | NotImplementedException: DDD-EVENT-01
+FAIL DDD-EVENT-02 | NotImplementedException: DDD-EVENT-02
+FAIL PLAN-LOAD-01 | NotImplementedException: PLAN-LOAD-01
+RESULT passed=0 failed=17 total=17
+LIMITATION: in-memory contract examples; no PostgreSQL, tenant security, real-device, routing-provider or production acceptance assurance.

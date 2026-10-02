@@ -39,6 +39,8 @@ jobs:
         run: mkdir -p evidence
       - name: Test traceability rejection and coverage rules
         run: node --test --test-reporter=tap tests/traceability.test.mjs | tee evidence/traceability-tests.tap
+      - name: Test driver prototype recording and form stability
+        run: node --test --test-reporter=tap tests/driver-prototype.test.mjs | tee evidence/driver-prototype-tests.tap
       - name: Check baseline mappings and declared example sources
         run: node scripts/check-traceability.mjs | tee evidence/traceability-inventory.log
       - name: Execute isolated .NET domain contract examples
@@ -50,7 +52,7 @@ jobs:
           import {writeFileSync} from 'node:fs';
           const candidateSha=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
           if(!/^[a-f0-9]{40}$/.test(candidateSha))throw Error('Invalid tested commit');
-          const report={schemaVersion:1,baselineId:'freight-tms-baseline-01',repository:'gwhitdev/tms',candidateSha,classification:'m01_design_and_contract_examples_only',productionAcceptance:'not_assessed',automaticVerification:false,runId:process.env.GITHUB_RUN_ID,runAttempt:process.env.GITHUB_RUN_ATTEMPT,reports:['traceability-tests.tap','traceability-inventory.log','domain-contract-examples.log']};
+          const report={schemaVersion:1,baselineId:'freight-tms-baseline-01',repository:'gwhitdev/tms',candidateSha,classification:'m01_design_and_contract_examples_only',productionAcceptance:'not_assessed',automaticVerification:false,runId:process.env.GITHUB_RUN_ID,runAttempt:process.env.GITHUB_RUN_ATTEMPT,reports:['traceability-tests.tap','driver-prototype-tests.tap','traceability-inventory.log','domain-contract-examples.log']};
           writeFileSync('evidence/assessment-scope.json',JSON.stringify(report,null,2)+'\n');
           NODE
       - name: Retain reports for criterion assessment

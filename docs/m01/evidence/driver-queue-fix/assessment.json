@@ -1,0 +1,26 @@
+{
+  "classification": "prototype_event_adapter_regression",
+  "recordedAt": "2026-10-02T13:36:04.984Z",
+  "red": {
+    "passed": 4,
+    "failed": 10,
+    "total": 14
+  },
+  "green": {
+    "passed": 14,
+    "failed": 0,
+    "total": 14
+  },
+  "productionAcceptance": "not_assessed",
+  "inputs": [
+    {
+      "path": "docs/m01/prototypes.html",
+      "sha256": "c0edb40d8dee9da54ce02bdeb9d458ce8f25be3e7e0722aa4058e613449634b1"
+    },
+    {
+      "path": "tests/driver-prototype.test.mjs",
+      "sha256": "590884cfd05e93296c1c54d4b7e53a003d97188f0650706585369c06a0059b58"
+    }
+  ],
+  "limitations": "The VM document stub checks event handlers and form replacement. Actual browser checks are separately recorded; these checks do not prove native mobile or server persistence."
+}

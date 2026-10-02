@@ -1,0 +1,22 @@
+✔ editing driver-quantity preserves the form subtree and draft value (36.4374ms)
+✔ editing driver-reason preserves the form subtree and draft value (7.0186ms)
+✔ editing driver-signature preserves the form subtree and draft value (4.1993ms)
+✔ editing driver-recipient preserves the form subtree and draft value (3.8482ms)
+✔ missing arrival, photo and signature leave the queue empty and show specific form errors (11.2616ms)
+✔ a complete full delivery creates one local queued event and cannot be recorded twice (9.8818ms)
+✔ a partial delivery records offline with its reason and reconnect does not acknowledge it (10.6222ms)
+✔ a missing partial-delivery reason gives a visible reason error and preserves evidence (9.3798ms)
+✔ invalid quantity "" is rejected with a visible quantity error (7.0744ms)
+✔ invalid quantity "1.5" is rejected with a visible quantity error (6.58ms)
+✔ invalid quantity "-1" is rejected with a visible quantity error (6.8605ms)
+✔ invalid quantity "4" is rejected with a visible quantity error (4.6743ms)
+✔ a whitespace-only recipient is rejected without discarding the captured evidence (7.9114ms)
+✔ a manifest conflict preserves the queued event through dispatch review (10.7911ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 392.8399

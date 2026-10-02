@@ -1,0 +1,274 @@
+{
+  "schemaVersion": 1,
+  "baselineId": "freight-tms-baseline-01",
+  "taskId": "M02-T01",
+  "candidateSha": "6912a164ce197c8b6ca9ae134d20a2b2deda1831",
+  "assessedAt": "2026-10-02T15:16:38.111Z",
+  "status": "verified",
+  "checks": [
+    0,
+    1,
+    2
+  ],
+  "automaticVerification": false,
+  "criterionEvidence": [
+    {
+      "index": 0,
+      "scenarioId": "M02-T01-A01",
+      "result": "passed",
+      "method": "rehearsal",
+      "reference": "6912a164ce197c8b6ca9ae134d20a2b2deda1831 CI run37023687207 tested merge6959588b60124591055507d71b2574e68d510bd4: FND-CFG-01,FND-PG-RED,FND-PG-GREEN,FND-DEPLOY-01; fixed Compose services boot/readiness and actual API checked."
+    },
+    {
+      "index": 1,
+      "scenarioId": "M02-T01-A02",
+      "result": "passed",
+      "method": "automated",
+      "reference": "6912a164ce197c8b6ca9ae134d20a2b2deda1831 CI run37023687207 tested merge6959588b60124591055507d71b2574e68d510bd4: empty-database migration RED/GREEN, migration twice, FND-BLOB-01,FND-PERSIST-01 and dependency recovery; marker/blob retained across recreation."
+    },
+    {
+      "index": 2,
+      "scenarioId": "M02-T01-A03",
+      "result": "passed",
+      "method": "review",
+      "reference": "6912a164ce197c8b6ca9ae134d20a2b2deda1831: browser-assessment.json records actual authorised operator unlock, live Refresh status recovery, session reload and Open application navigation.17 React component tests and15 installer HTTP tests cover settings/deployment/error transitions; CI run37023687207 at tested merge6959588b60124591055507d71b2574e68d510bd4 executes a real clean-host control API installation. Production deployment/recovery remains M09."
+    }
+  ],
+  "tests": {
+    "installerHttp": 15,
+    "foundationPolicyAndResponse": 14,
+    "reactUI": 17,
+    "realContainerSteps": 9,
+    "realDatabaseGreen": 7
+  },
+  "tdd": [
+    {
+      "layer": "installer_http",
+      "red": "0pass/12fail",
+      "green": "15pass/0fail",
+      "additionalRed": "malformed codes/session expiry:12pass2fail; actual readiness recovery:14pass1fail"
+    },
+    {
+      "layer": "foundation_policy",
+      "red": "0pass/12fail",
+      "green": "14pass/0fail",
+      "additionalRed": "response contract:12pass2fail"
+    },
+    {
+      "layer": "react_ui",
+      "red": "0pass/16fail",
+      "green": "17pass/0fail",
+      "additionalRed": "draft preservation:1fail,16skipped"
+    },
+    {
+      "layer": "real_postgresql",
+      "red": "FND-PG-01 failed with independently confirmed correct DB/roles and absent migration table",
+      "green": "7passed/0failed including committed/retained markers"
+    }
+  ],
+  "sourceInputs": [
+    {
+      "path": ".dockerignore",
+      "sha256": "8472c4e8d690cb34e81094750b7bddaf1ade0dd2ede12a2b4232936b4279637e"
+    },
+    {
+      "path": ".github/workflows/foundation.yml",
+      "sha256": "70c85f34e520e922dabe95bfcafb1bcbda2f7a90105bc9b781128a69ac0b9780"
+    },
+    {
+      "path": "deploy/control/access-code.mjs",
+      "sha256": "ffef6c29b6be2dec15ca8649ddfa0d88a8e8889be3b759aaebe74b05c7cddcfe"
+    },
+    {
+      "path": "deploy/control/release.mjs",
+      "sha256": "0864c60af475dbef612b3f5e5cf382ab8294cf444830166713240346713ed162"
+    },
+    {
+      "path": "deploy/control/server.mjs",
+      "sha256": "169c90f7ea041e744f3d66b5a2067159b9669da8fdbf0b5e2e95b52dd49f84cc"
+    },
+    {
+      "path": "deploy/database.Dockerfile",
+      "sha256": "e2fbd95287b1ee966166952c8d820ab95d04734732dce4cbd4644a6968fe97bd"
+    },
+    {
+      "path": "deploy/database/01-bootstrap.sh",
+      "sha256": "c45eae8b88f2c790e7010c5a7c255ebdba639b60dc02aa82d0fb34471c4216b8"
+    },
+    {
+      "path": "deploy/foundation.Dockerfile",
+      "sha256": "c49286d50a1f5c13c79821b05d9bd3a3c84691f95baa7b05503971e5841b7155"
+    },
+    {
+      "path": "deploy/foundation.compose.yaml",
+      "sha256": "4ee9e1b2230edb5ff46fe89e455a84fec50c837765670883da0d1d9949b89f41"
+    },
+    {
+      "path": "deploy/installer.Dockerfile",
+      "sha256": "d553dc344fe62df37e87a1eb7a0bfc1282b8f39816b2be0e0e50154bf27698bd"
+    },
+    {
+      "path": "deploy/installer.compose.yaml",
+      "sha256": "8839e1b49bf69a414d953af050d8f99a1a6ad954ff2b40cd8367db0a4aecb99e"
+    },
+    {
+      "path": "scripts/test-foundation.mjs",
+      "sha256": "1472cc1fccb4f9cc71d36bceee064a131ab41af1f17564fff204485dd261f2d8"
+    },
+    {
+      "path": "src/Tms.Foundation.Api/Program.cs",
+      "sha256": "15678e2dc937a74e102644b25d8d54117726cd6de9305bd41058d632567dd4de"
+    },
+    {
+      "path": "src/Tms.Foundation.Api/Tms.Foundation.Api.csproj",
+      "sha256": "0bfa83320928f984a5a126994db0920236b2d820da0bbc44205dfbd65509bcb5"
+    },
+    {
+      "path": "src/Tms.Foundation.Api/packages.lock.json",
+      "sha256": "aec69b96da4ff9c526fff2746a6963cd56123b8cf94a6d0b6150550a8c63c9f7"
+    },
+    {
+      "path": "src/Tms.Foundation.Infrastructure/FoundationContracts.cs",
+      "sha256": "9045182f504142bb8400ac6d9931a5fb3bc435955dd2740e60fe3d3450b67fcb"
+    },
+    {
+      "path": "src/Tms.Foundation.Infrastructure/FoundationMigration.cs",
+      "sha256": "89556d62496f07dd299ffbec8fbfcb9a2cb6b7d4a04505010cb226568797c68b"
+    },
+    {
+      "path": "src/Tms.Foundation.Infrastructure/PostgresFoundationDatabase.cs",
+      "sha256": "6e11ef0fe4604984ae5d13e364dc1a4f81f0f1e12e7a606b36c14712948a986c"
+    },
+    {
+      "path": "src/Tms.Foundation.Infrastructure/StorageReadiness.cs",
+      "sha256": "850f1defefb4df325236b4092d1585c1d8b944237087588840875cbc460e2aeb"
+    },
+    {
+      "path": "src/Tms.Foundation.Infrastructure/Tms.Foundation.Infrastructure.csproj",
+      "sha256": "636edeaa081ae7d8a2c77f1625fdb4f25308565cf735f904ee0f26c49a8630a4"
+    },
+    {
+      "path": "src/Tms.Foundation.Infrastructure/packages.lock.json",
+      "sha256": "88854fdae4b2f324034be7aa67a365230c399e91c32be6526d03a4c8f8d6f6ea"
+    },
+    {
+      "path": "src/Tms.Foundation.Worker/Program.cs",
+      "sha256": "646d0e58e7cb7bcc00408bfa82d7bd135bf15a3c98f1c98966ba272467a69d17"
+    },
+    {
+      "path": "src/Tms.Foundation.Worker/Tms.Foundation.Worker.csproj",
+      "sha256": "2a5744157bfca051ebcfe548f8298d911f944005948ee0f8357c0ff946748906"
+    },
+    {
+      "path": "src/Tms.Foundation.Worker/packages.lock.json",
+      "sha256": "aec69b96da4ff9c526fff2746a6963cd56123b8cf94a6d0b6150550a8c63c9f7"
+    },
+    {
+      "path": "tests/M02.FoundationSmoke/M02.FoundationSmoke.csproj",
+      "sha256": "0af96b53f5b5c649e3bd6d4a481487990db2e167d573d396abc603c7ff9e6e56"
+    },
+    {
+      "path": "tests/M02.FoundationSmoke/Program.cs",
+      "sha256": "c4468d8735555a23e4cf2905183e00e8d37e6d04343766187ac5923db41a2c01"
+    },
+    {
+      "path": "tests/M02.FoundationSmoke/packages.lock.json",
+      "sha256": "551ed8c53604ae7aadb43d83040ca094ef6d26e435fd008e718ae868e0b5dc99"
+    },
+    {
+      "path": "tests/Tms.Foundation.Tests/Program.cs",
+      "sha256": "25f128481e3443656ecdd082ad9755c86c790b9c6becebe31d4c348d2b371120"
+    },
+    {
+      "path": "tests/Tms.Foundation.Tests/Tms.Foundation.Tests.csproj",
+      "sha256": "0af96b53f5b5c649e3bd6d4a481487990db2e167d573d396abc603c7ff9e6e56"
+    },
+    {
+      "path": "tests/Tms.Foundation.Tests/packages.lock.json",
+      "sha256": "551ed8c53604ae7aadb43d83040ca094ef6d26e435fd008e718ae868e0b5dc99"
+    },
+    {
+      "path": "tests/installer-control.test.mjs",
+      "sha256": "695859feaff8dc9e1e87672a256e3bcd404c39f6ca963560690c34657631df00"
+    },
+    {
+      "path": "web/.gitignore",
+      "sha256": "e9ffbefabbb504077154b9c3a408da5ad2724e7f3f034067b75c094dd94ba80c"
+    },
+    {
+      "path": "web/Dockerfile",
+      "sha256": "19d14ef996480c1c7f74ee5cf3175a850fcd7c88355982a682eb6201745b535a"
+    },
+    {
+      "path": "web/index.html",
+      "sha256": "e314d5168308034773793dfafb2fa35d718df072a66464ffdc3f31e4e6ed13cc"
+    },
+    {
+      "path": "web/nginx.conf",
+      "sha256": "df537951842cb1869f4090bc90a22cd8f3b8cf78b604f63148f08857e6246e2d"
+    },
+    {
+      "path": "web/package.json",
+      "sha256": "99bea05073d9fa16e3b29fca3314e382c30d6477493bfa533faeff95a7e3c4e1"
+    },
+    {
+      "path": "web/pnpm-lock.yaml",
+      "sha256": "8cdbb3e93e7130de779d0c149da7818edb250c95dbaf45129b1f28b3fb2608b0"
+    },
+    {
+      "path": "web/pnpm-workspace.yaml",
+      "sha256": "9ee44f16130afd9faaed0b40c7f1c7a97bb80ade06bc106561894bddea3a71c7"
+    },
+    {
+      "path": "web/src/App.test.tsx",
+      "sha256": "eb63127d2f922de8a9f390723e60dafe867386af093ce9c85d180620ef3293db"
+    },
+    {
+      "path": "web/src/App.tsx",
+      "sha256": "82aaa69f6ab7a33e38d54005cb389c36bf0d56629b89da88eb528bfaab2cc413"
+    },
+    {
+      "path": "web/src/api.ts",
+      "sha256": "4bd7922d8b07acf9d766c5d15750561085f3dec5bfe1ec53ddaae2719fcd21c1"
+    },
+    {
+      "path": "web/src/main.tsx",
+      "sha256": "81df18e0d166e771fab98938d62cf02d971bc58c08bb368bb1d035a45b3b06ca"
+    },
+    {
+      "path": "web/src/styles.css",
+      "sha256": "7eda9655e365ed5f5b822f27c4a830ce9c109aa41124131d5a9386458def8ba8"
+    },
+    {
+      "path": "web/src/test/setup.ts",
+      "sha256": "2600333fa998d4bc8f8c7983181fe657a7e8ec9dad65252e5c0ce378c03a7daf"
+    },
+    {
+      "path": "web/tsconfig.json",
+      "sha256": "efaa667d5b7dfbc1a7e543f010c11f3425af72b715a6edd1acc9341252b7be30"
+    },
+    {
+      "path": "web/vite.config.ts",
+      "sha256": "fc90b451cd937983567793f0b2943f2abb06a8f772c233465a45e47000fb87fd"
+    }
+  ],
+  "ci": {
+    "runId": 37023687207,
+    "testedMergeSha": "6959588b60124591055507d71b2574e68d510bd4",
+    "conclusion": "success",
+    "artifact": {
+      "id": 11234580653,
+      "name": "m02-t01-foundation-6959588b60124591055507d71b2574e68d510bd4-1",
+      "digest": "sha256:b21b27cdf00bc0a51e669de85daa9d7325205062383d08a1b3e522062ca9f038",
+      "expiresAt": "2026-11-01T15:01:58Z"
+    }
+  },
+  "limitations": [
+    "Local full clean-stack rehearsal preceded the final runtime patch/recovery correction; CI assesses the final candidate on a fresh isolated host. Local post-patch marker/role, runtime10.0.12 and gateway readiness checks passed.",
+    "Actual browser acceptance covers operator pairing, live status refresh, session persistence and application navigation. Initial settings/deploy transitions also have React component tests and actual clean-host control API CI; this is not a claim of a complete browser first-install rehearsal or WCAG certification.",
+    "The private filer fixture proves storage persistence, not tenant-authorised POD storage.",
+    "Identity, tenant isolation, administration, menus, business modules, outbox and production availability/recovery are unassessed subsequent tasks.",
+    "M01 traceability.json remains the starting baseline; current M02 progress is recorded by this assessment and the private live plan."
+  ],
+  "owner": "Codex technical acceptance; operator pairing approved by gwhitdev"
+}

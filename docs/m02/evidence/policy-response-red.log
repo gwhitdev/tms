@@ -1,0 +1,16 @@
+PASS FND-READY-01
+PASS FND-READY-02
+PASS FND-READY-03
+PASS FND-READY-04
+PASS FND-READY-05
+PASS FND-READY-06
+PASS FND-CONFIG-01
+PASS FND-CONFIG-02
+PASS FND-CONFIG-03
+PASS FND-CONFIG-04
+PASS FND-HEARTBEAT-01
+PASS FND-HEARTBEAT-02
+FAIL FND-API-01 | NotImplementedException: FND-API
+FAIL FND-API-02 | NotImplementedException: FND-API
+RESULT passed=12 failed=2 total=14
+LIMITATION: readiness/configuration/heartbeat policy tests use fakes; PostgreSQL and container proof require M02.FoundationSmoke.

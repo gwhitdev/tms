@@ -1,0 +1,14 @@
+FAIL FND-READY-01 | NotImplementedException: FND-READY
+FAIL FND-READY-02 | NotImplementedException: FND-READY
+FAIL FND-READY-03 | NotImplementedException: FND-READY
+FAIL FND-READY-04 | NotImplementedException: FND-READY
+FAIL FND-READY-05 | NotImplementedException: FND-READY
+FAIL FND-READY-06 | NotImplementedException: FND-READY
+FAIL FND-CONFIG-01 | NotImplementedException: FND-CONFIG
+FAIL FND-CONFIG-02 | NotImplementedException: FND-CONFIG
+FAIL FND-CONFIG-03 | NotImplementedException: FND-CONFIG
+FAIL FND-CONFIG-04 | NotImplementedException: FND-CONFIG
+FAIL FND-HEARTBEAT-01 | NotImplementedException: FND-HEARTBEAT
+FAIL FND-HEARTBEAT-02 | NotImplementedException: FND-HEARTBEAT
+RESULT passed=0 failed=12 total=12
+LIMITATION: readiness/configuration/heartbeat policy tests use fakes; PostgreSQL and container proof require M02.FoundationSmoke.

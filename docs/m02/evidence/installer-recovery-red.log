@@ -1,0 +1,43 @@
+✔ unpaired requests cannot read installer state (104.1762ms)
+✔ unknown operator code cannot pair (34.3547ms)
+✔ malformed and multibyte operator codes fail authentication without a server exception (63.1848ms)
+✔ paired access has a server-enforced expiry after restart (76.9907ms)
+✔ pairing sets a strict HttpOnly session and consumes one-use code (39.7083ms)
+✔ Host and cross-origin mutations are rejected (28.0198ms)
+✔ paired mutations require the current CSRF token (37.4059ms)
+✔ settings validate integer nonprivileged ports and reject unknown fields (103.7536ms)
+✔ configure durably stores typed settings and distinct secret files without disclosing secrets (132.4035ms)
+✔ deployment requires configuration and never accepts commands or releases (128.2103ms)
+✔ concurrent deployments serialize and success reflects the runner outcome (210.3007ms)
+✔ deployment failure is actionable without exposing engine output or secrets (240.7689ms)
+✖ actual service degradation and recovery update current control readiness (221.3304ms)
+✔ control state survives restart independently of application database (66.0392ms)
+✔ interrupted deployment is durably failed and can be retried instead of reporting ready (62.7397ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 14
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1815.9087
+
+✖ failing tests:
+
+test at tests\installer-control.test.mjs:39:1
+✖ actual service degradation and recovery update current control readiness (221.3304ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'failed' !== 'ready'
+  
+      at TestContext.<anonymous> (file:///<workspace>/work/tms/tests/installer-control.test.mjs:39:772)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'failed',
+    expected: 'ready',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

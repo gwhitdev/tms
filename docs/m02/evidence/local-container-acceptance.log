@@ -1,0 +1,10 @@
+PASS FND-CFG-01 | Both fixed Compose configurations validate; foundation container project is initially empty.
+PASS FND-SETUP-01 | Actual operator unlock, strict HttpOnly session and validated port8180 configuration succeeded; credentials stayed in memory.
+PASS FND-PG-RED | Genuine pre-migration smoke failed FND-PG-01; PostgreSQL independently confirmed the correct database, existing runtime/migrator roles and absent migration table.
+PASS FND-PG-GREEN | Two migration executions, restricted runtime privileges, current worker heartbeat and committed retention marker passed.
+PASS FND-DEPLOY-01 | Actual control deployment reached ready; gateway readiness and honest foundation API summary passed.
+PASS FND-BLOB-01 | Private internal filer accepted a controlled fixture write and identical read; no POD authorisation claim.
+PASS FND-PERSIST-01 | Container recreation preserved database marker and private filer object; worker heartbeat and gateway readiness passed.
+PASS FND-OUTAGE-STORAGE | Stopping storage produced API503; independent control remained available; recovery restored readiness and retained database marker.
+PASS FND-OUTAGE-DATABASE | Stopping database produced API503; independent control remained available; recovery restored readiness and retained database marker.
+PASS M02-T01 foundation container acceptance completed; product verification requires separate criterion assessment.

@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "baselineId": "freight-tms-baseline-01",
+  "taskId": "M02-T01",
+  "repository": "gwhitdev/tms",
+  "candidateSha": null,
+  "classification": "foundation_container_acceptance_only",
+  "automaticVerification": false,
+  "tenantIsolation": "not_assessed",
+  "identity": "not_implemented",
+  "businessOperations": "not_implemented",
+  "blobProof": "private_filer_fixture_only",
+  "startedAt": "2026-10-02T14:43:53.093Z",
+  "status": "passed",
+  "steps": [
+    {
+      "id": "FND-CFG-01",
+      "result": "passed",
+      "detail": "Both fixed Compose configurations validate; foundation container project is initially empty.",
+      "observedAt": "2026-10-02T14:43:54.715Z"
+    },
+    {
+      "id": "FND-SETUP-01",
+      "result": "passed",
+      "detail": "Actual operator unlock, strict HttpOnly session and validated port8180 configuration succeeded; credentials stayed in memory.",
+      "observedAt": "2026-10-02T14:43:59.661Z"
+    },
+    {
+      "id": "FND-PG-RED",
+      "result": "passed",
+      "detail": "Genuine pre-migration smoke failed FND-PG-01; PostgreSQL independently confirmed the correct database, existing runtime/migrator roles and absent migration table.",
+      "observedAt": "2026-10-02T14:44:17.271Z"
+    },
+    {
+      "id": "FND-PG-GREEN",
+      "result": "passed",
+      "detail": "Two migration executions, restricted runtime privileges, current worker heartbeat and committed retention marker passed.",
+      "observedAt": "2026-10-02T14:44:34.230Z"
+    },
+    {
+      "id": "FND-DEPLOY-01",
+      "result": "passed",
+      "detail": "Actual control deployment reached ready; gateway readiness and honest foundation API summary passed.",
+      "observedAt": "2026-10-02T14:45:07.346Z"
+    },
+    {
+      "id": "FND-BLOB-01",
+      "result": "passed",
+      "detail": "Private internal filer accepted a controlled fixture write and identical read; no POD authorisation claim.",
+      "observedAt": "2026-10-02T14:45:08.778Z"
+    },
+    {
+      "id": "FND-PERSIST-01",
+      "result": "passed",
+      "detail": "Container recreation preserved database marker and private filer object; worker heartbeat and gateway readiness passed.",
+      "observedAt": "2026-10-02T14:45:44.611Z"
+    },
+    {
+      "id": "FND-OUTAGE-STORAGE",
+      "result": "passed",
+      "detail": "Stopping storage produced API503; independent control remained available; recovery restored readiness and retained database marker.",
+      "observedAt": "2026-10-02T14:46:01.864Z"
+    },
+    {
+      "id": "FND-OUTAGE-DATABASE",
+      "result": "passed",
+      "detail": "Stopping database produced API503; independent control remained available; recovery restored readiness and retained database marker.",
+      "observedAt": "2026-10-02T14:46:12.093Z"
+    }
+  ],
+  "completedAt": "2026-10-02T14:46:12.096Z"
+}

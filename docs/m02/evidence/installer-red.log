@@ -1,0 +1,210 @@
+✖ unpaired requests cannot read installer state (50.9279ms)
+✖ unknown operator code cannot pair (11.8454ms)
+✖ pairing sets a strict HttpOnly session and consumes one-use code (3.8277ms)
+✖ Host and cross-origin mutations are rejected (8.9334ms)
+✖ paired mutations require the current CSRF token (4.4432ms)
+✖ settings validate integer nonprivileged ports and reject unknown fields (3.831ms)
+✖ configure durably stores typed settings and distinct secret files without disclosing secrets (4.1109ms)
+✖ deployment requires configuration and never accepts commands or releases (2.7333ms)
+✖ concurrent deployments serialize and success reflects the runner outcome (2.5833ms)
+✖ deployment failure is actionable without exposing engine output or secrets (2.5222ms)
+✖ control state survives restart independently of application database (3.2696ms)
+✖ interrupted deployment is durably failed and can be retried instead of reporting ready (2.223ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 0
+ℹ fail 12
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 212.8437
+
+✖ failing tests:
+
+test at tests\installer-control.test.mjs:26:1
+✖ unpaired requests cannot read installer state (50.9279ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  404 !== 401
+  
+      at TestContext.<anonymous> (file:///<workspace>/work/tms/tests/installer-control.test.mjs:26:136)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 404,
+    expected: 401,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\installer-control.test.mjs:27:1
+✖ unknown operator code cannot pair (11.8454ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  404 !== 401
+  
+      at TestContext.<anonymous> (file:///<workspace>/work/tms/tests/installer-control.test.mjs:27:84)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 404,
+    expected: 401,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\installer-control.test.mjs:28:1
+✖ pairing sets a strict HttpOnly session and consumes one-use code (3.8277ms)
+  Error: ENOENT: no such file or directory, open 'C:\Users\gwhit\AppData\Local\Temp\tms-control-test-ETbh6q\control\operator-code'
+      at async open (node:internal/fs/promises:697:25)
+      at async Object.readFile (node:internal/fs/promises:1348:14)
+      at async TestContext.<anonymous> (file:///<workspace>/work/tms/tests/installer-control.test.mjs:28:119)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'C:\\Users\\gwhit\\AppData\\Local\\Temp\\tms-control-test-ETbh6q\\control\\operator-code'
+  }
+
+test at tests\installer-control.test.mjs:29:1
+✖ Host and cross-origin mutations are rejected (8.9334ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  404 !== 403
+  
+      at TestContext.<anonymous> (file:///<workspace>/work/tms/tests/installer-control.test.mjs:29:95)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 404,
+    expected: 403,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\installer-control.test.mjs:30:1
+✖ paired mutations require the current CSRF token (4.4432ms)
+  Error: ENOENT: no such file or directory, open 'C:\Users\gwhit\AppData\Local\Temp\tms-control-test-CCBSQi\control\operator-code'
+      at async open (node:internal/fs/promises:697:25)
+      at async Object.readFile (node:internal/fs/promises:1348:14)
+      at async Object.unlock (file:///<workspace>/work/tms/tests/installer-control.test.mjs:22:61)
+      at async TestContext.<anonymous> (file:///<workspace>/work/tms/tests/installer-control.test.mjs:30:91)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'C:\\Users\\gwhit\\AppData\\Local\\Temp\\tms-control-test-CCBSQi\\control\\operator-code'
+  }
+
+test at tests\installer-control.test.mjs:31:1
+✖ settings validate integer nonprivileged ports and reject unknown fields (3.831ms)
+  Error: ENOENT: no such file or directory, open 'C:\Users\gwhit\AppData\Local\Temp\tms-control-test-HfFCNr\control\operator-code'
+      at async open (node:internal/fs/promises:697:25)
+      at async Object.readFile (node:internal/fs/promises:1348:14)
+      at async Object.unlock (file:///<workspace>/work/tms/tests/installer-control.test.mjs:22:61)
+      at async TestContext.<anonymous> (file:///<workspace>/work/tms/tests/installer-control.test.mjs:31:124)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'C:\\Users\\gwhit\\AppData\\Local\\Temp\\tms-control-test-HfFCNr\\control\\operator-code'
+  }
+
+test at tests\installer-control.test.mjs:32:1
+✖ configure durably stores typed settings and distinct secret files without disclosing secrets (4.1109ms)
+  Error: ENOENT: no such file or directory, open 'C:\Users\gwhit\AppData\Local\Temp\tms-control-test-Y1HjXE\control\operator-code'
+      at async open (node:internal/fs/promises:697:25)
+      at async Object.readFile (node:internal/fs/promises:1348:14)
+      at async Object.unlock (file:///<workspace>/work/tms/tests/installer-control.test.mjs:22:61)
+      at async TestContext.<anonymous> (file:///<workspace>/work/tms/tests/installer-control.test.mjs:32:145)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'C:\\Users\\gwhit\\AppData\\Local\\Temp\\tms-control-test-Y1HjXE\\control\\operator-code'
+  }
+
+test at tests\installer-control.test.mjs:33:1
+✖ deployment requires configuration and never accepts commands or releases (2.7333ms)
+  Error: ENOENT: no such file or directory, open 'C:\Users\gwhit\AppData\Local\Temp\tms-control-test-MwjGYh\control\operator-code'
+      at async open (node:internal/fs/promises:697:25)
+      at async Object.readFile (node:internal/fs/promises:1348:14)
+      at async Object.unlock (file:///<workspace>/work/tms/tests/installer-control.test.mjs:22:61)
+      at async TestContext.<anonymous> (file:///<workspace>/work/tms/tests/installer-control.test.mjs:33:125)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'C:\\Users\\gwhit\\AppData\\Local\\Temp\\tms-control-test-MwjGYh\\control\\operator-code'
+  }
+
+test at tests\installer-control.test.mjs:34:1
+✖ concurrent deployments serialize and success reflects the runner outcome (2.5833ms)
+  Error: ENOENT: no such file or directory, open 'C:\Users\gwhit\AppData\Local\Temp\tms-control-test-66fUne\control\operator-code'
+      at async open (node:internal/fs/promises:697:25)
+      at async Object.readFile (node:internal/fs/promises:1348:14)
+      at async Object.unlock (file:///<workspace>/work/tms/tests/installer-control.test.mjs:22:61)
+      at async TestContext.<anonymous> (file:///<workspace>/work/tms/tests/installer-control.test.mjs:34:229)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'C:\\Users\\gwhit\\AppData\\Local\\Temp\\tms-control-test-66fUne\\control\\operator-code'
+  }
+
+test at tests\installer-control.test.mjs:35:1
+✖ deployment failure is actionable without exposing engine output or secrets (2.5222ms)
+  Error: ENOENT: no such file or directory, open 'C:\Users\gwhit\AppData\Local\Temp\tms-control-test-Td9Opl\control\operator-code'
+      at async open (node:internal/fs/promises:697:25)
+      at async Object.readFile (node:internal/fs/promises:1348:14)
+      at async Object.unlock (file:///<workspace>/work/tms/tests/installer-control.test.mjs:22:61)
+      at async TestContext.<anonymous> (file:///<workspace>/work/tms/tests/installer-control.test.mjs:35:195)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'C:\\Users\\gwhit\\AppData\\Local\\Temp\\tms-control-test-Td9Opl\\control\\operator-code'
+  }
+
+test at tests\installer-control.test.mjs:36:1
+✖ control state survives restart independently of application database (3.2696ms)
+  Error: ENOENT: no such file or directory, open 'C:\Users\gwhit\AppData\Local\Temp\tms-control-test-GpLm8k\control\operator-code'
+      at async open (node:internal/fs/promises:697:25)
+      at async Object.readFile (node:internal/fs/promises:1348:14)
+      at async Object.unlock (file:///<workspace>/work/tms/tests/installer-control.test.mjs:22:61)
+      at async TestContext.<anonymous> (file:///<workspace>/work/tms/tests/installer-control.test.mjs:36:121)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'C:\\Users\\gwhit\\AppData\\Local\\Temp\\tms-control-test-GpLm8k\\control\\operator-code'
+  }
+
+test at tests\installer-control.test.mjs:37:1
+✖ interrupted deployment is durably failed and can be retried instead of reporting ready (2.223ms)
+  Error: ENOENT: no such file or directory, open 'C:\Users\gwhit\AppData\Local\Temp\tms-control-test-bNwAZJ\control\operator-code'
+      at async open (node:internal/fs/promises:697:25)
+      at async Object.readFile (node:internal/fs/promises:1348:14)
+      at async Object.unlock (file:///<workspace>/work/tms/tests/installer-control.test.mjs:22:61)
+      at async TestContext.<anonymous> (file:///<workspace>/work/tms/tests/installer-control.test.mjs:37:139)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'C:\\Users\\gwhit\\AppData\\Local\\Temp\\tms-control-test-bNwAZJ\\control\\operator-code'
+  }

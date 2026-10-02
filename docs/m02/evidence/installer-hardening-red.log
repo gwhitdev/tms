@@ -1,0 +1,50 @@
+✔ unpaired requests cannot read installer state (110.9021ms)
+✔ unknown operator code cannot pair (13.6643ms)
+✖ malformed and multibyte operator codes fail authentication without a server exception (13.3814ms)
+✖ paired access has a server-enforced expiry after restart (45.7058ms)
+✔ pairing sets a strict HttpOnly session and consumes one-use code (31.4173ms)
+✔ Host and cross-origin mutations are rejected (16.5987ms)
+✔ paired mutations require the current CSRF token (26.8242ms)
+✔ settings validate integer nonprivileged ports and reject unknown fields (92.011ms)
+✔ configure durably stores typed settings and distinct secret files without disclosing secrets (60.1556ms)
+✔ deployment requires configuration and never accepts commands or releases (96.9462ms)
+✔ concurrent deployments serialize and success reflects the runner outcome (150.128ms)
+✔ deployment failure is actionable without exposing engine output or secrets (140.6179ms)
+✔ control state survives restart independently of application database (55.4715ms)
+✔ interrupted deployment is durably failed and can be retried instead of reporting ready (48.51ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 12
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1102.6853
+
+✖ failing tests:
+
+test at tests\installer-control.test.mjs:29:1
+✖ malformed and multibyte operator codes fail authentication without a server exception (13.3814ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  500 !== 401
+  
+      at TestContext.<anonymous> (file:///<workspace>/work/tms/tests/installer-control.test.mjs:29:177)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 500,
+    expected: 401,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\installer-control.test.mjs:30:1
+✖ paired access has a server-enforced expiry after restart (45.7058ms)
+  SyntaxError: Unexpected token 'e', "ed11686eb3"... is not valid JSON
+      at JSON.parse (<anonymous>)
+      at TestContext.<anonymous> (file:///<workspace>/work/tms/tests/installer-control.test.mjs:30:207)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

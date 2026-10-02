@@ -1,0 +1,41 @@
+{
+  "candidateSha": "6912a164ce197c8b6ca9ae134d20a2b2deda1831",
+  "testedMergeSha": "6959588b60124591055507d71b2574e68d510bd4",
+  "runId": 37023687207,
+  "jobId": 110892846248,
+  "runUrl": "https://github.com/gwhitdev/tms/actions/runs/37023687207",
+  "conclusion": "success",
+  "artifact": {
+    "id": 11234580653,
+    "name": "m02-t01-foundation-6959588b60124591055507d71b2574e68d510bd4-1",
+    "digest": "sha256:b21b27cdf00bc0a51e669de85daa9d7325205062383d08a1b3e522062ca9f038",
+    "expiresAt": "2026-11-01T15:01:58Z"
+  },
+  "scope": "M02-T01 foundation infrastructure only; identity/tenant isolation/business operations not assessed",
+  "steps": [
+    "2026-10-02T14:59:16.7701645Z PASS FND-READY-01",
+    "2026-10-02T14:59:16.7703021Z PASS FND-READY-02",
+    "2026-10-02T14:59:16.7703812Z PASS FND-READY-03",
+    "2026-10-02T14:59:16.7704198Z PASS FND-READY-04",
+    "2026-10-02T14:59:16.7713192Z PASS FND-READY-05",
+    "2026-10-02T14:59:16.7767155Z PASS FND-READY-06",
+    "2026-10-02T14:59:16.7875769Z PASS FND-CONFIG-01",
+    "2026-10-02T14:59:16.7878536Z PASS FND-CONFIG-02",
+    "2026-10-02T14:59:16.7882942Z PASS FND-CONFIG-03",
+    "2026-10-02T14:59:16.7885336Z PASS FND-CONFIG-04",
+    "2026-10-02T14:59:16.7902479Z PASS FND-HEARTBEAT-01",
+    "2026-10-02T14:59:16.7905778Z PASS FND-HEARTBEAT-02",
+    "2026-10-02T14:59:16.8221197Z PASS FND-API-01",
+    "2026-10-02T14:59:16.8222341Z PASS FND-API-02",
+    "2026-10-02T14:59:26.2548656Z PASS FND-CFG-01 | Both fixed Compose configurations validate; foundation container project is initially empty.",
+    "2026-10-02T14:59:48.6241762Z PASS FND-SETUP-01 | Actual operator unlock, strict HttpOnly session and validated port8180 configuration succeeded; credentials stayed in memory.",
+    "2026-10-02T15:00:24.1794401Z PASS FND-PG-RED | Genuine pre-migration smoke failed FND-PG-01; PostgreSQL independently confirmed the correct database, existing runtime/migrator roles and absent migration table.",
+    "2026-10-02T15:00:36.5840353Z PASS FND-PG-GREEN | Two migration executions, restricted runtime privileges, current worker heartbeat and committed retention marker passed.",
+    "2026-10-02T15:01:04.7655029Z PASS FND-DEPLOY-01 | Actual control deployment reached ready; gateway readiness and honest foundation API summary passed.",
+    "2026-10-02T15:01:05.6142577Z PASS FND-BLOB-01 | Private internal filer accepted a controlled fixture write and identical read; no POD authorisation claim.",
+    "2026-10-02T15:01:44.4676394Z PASS FND-PERSIST-01 | Container recreation preserved database marker and private filer object; worker heartbeat and gateway readiness passed.",
+    "2026-10-02T15:01:56.5208771Z PASS FND-OUTAGE-STORAGE | Stopping storage produced API503; independent control remained available; recovery restored readiness and retained database marker.",
+    "2026-10-02T15:01:58.5692261Z PASS FND-OUTAGE-DATABASE | Stopping database produced API503; independent control remained available; recovery restored readiness and retained database marker.",
+    "2026-10-02T15:01:58.5698723Z PASS M02-T01 foundation container acceptance completed; product verification requires separate criterion assessment."
+  ]
+}

@@ -117,6 +117,42 @@
           "reference": "gwhitdev product review 2026-10-02, private plan v23 criteria checked plus direct confirmation; reviewed candidate 297695fc6d5041b55936bda38552d9d40c5d0183, docs/m01/product-review.json records provenance and scope."
         }
       ]
+    },
+    {
+      "id": "M02-T01",
+      "candidateSha": "6912a164ce197c8b6ca9ae134d20a2b2deda1831",
+      "patch": {
+        "status": "verified",
+        "owner": "Codex technical acceptance; operator pairing approved by gwhitdev",
+        "notes": "M02-T01 foundation accepted: fixed container topology, .NET10.0.12 API/worker, PostgreSQL18.6, private object storage and independent local installer.15 HTTP+14 policy+17 React tests pass with retained RED evidence. Actual CI checks migration, persistence and outage/recovery. Paired browser checks unlock, refresh, session reload and Open application. Identity, tenant isolation and administration remain later M02 tasks.",
+        "evidence": "Assessed source 6912a164ce197c8b6ca9ae134d20a2b2deda1831; CI tested merge6959588b60124591055507d71b2574e68d510bd4: https://github.com/gwhitdev/tms/actions/runs/37023687207 . Durable assessment and browser record: docs/m02/evidence/README.md and browser-assessment.json in https://github.com/gwhitdev/tms/pull/2 . Verified scope is M02-T01 foundation only.",
+        "blocker": "",
+        "checks": [
+          0,
+          1,
+          2
+        ]
+      },
+      "criterionEvidence": [
+        {
+          "index": 0,
+          "result": "passed",
+          "method": "rehearsal",
+          "reference": "6912a164ce197c8b6ca9ae134d20a2b2deda1831 CI run37023687207 tested merge6959588b60124591055507d71b2574e68d510bd4: FND-CFG-01,FND-PG-RED,FND-PG-GREEN,FND-DEPLOY-01; fixed Compose services boot/readiness and actual API checked."
+        },
+        {
+          "index": 1,
+          "result": "passed",
+          "method": "automated",
+          "reference": "6912a164ce197c8b6ca9ae134d20a2b2deda1831 CI run37023687207 tested merge6959588b60124591055507d71b2574e68d510bd4: empty-database migration RED/GREEN, migration twice, FND-BLOB-01,FND-PERSIST-01 and dependency recovery; marker/blob retained across recreation."
+        },
+        {
+          "index": 2,
+          "result": "passed",
+          "method": "review",
+          "reference": "6912a164ce197c8b6ca9ae134d20a2b2deda1831: browser-assessment.json records actual authorised operator unlock, live Refresh status recovery, session reload and Open application navigation.17 React component tests and15 installer HTTP tests cover settings/deployment/error transitions; CI run37023687207 at tested merge6959588b60124591055507d71b2574e68d510bd4 executes a real clean-host control API installation. Production deployment/recovery remains M09."
+        }
+      ]
     }
   ]
 }

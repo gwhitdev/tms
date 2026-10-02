@@ -1,0 +1,507 @@
+
+ RUN  v5.0.3 <workspace>/work/tms/web
+
+ ❯ src/App.test.tsx (16 tests | 16 failed) 13246ms
+   ❯ foundation surface (2)
+     × selects foundation only when the control endpoint is absent and reports real readiness and pending identity 1033ms
+     × does not claim ready on a 503 and retries the actual readiness boundary 1024ms
+   ❯ installer access (3)
+     × shows loading without actionable deployment controls until status is received 19ms
+     × unlocks a 401 with an operator code, cookie credentials and no pre-session CSRF 1022ms
+     × preserves the locked surface and clears expired or used codes for retry 1016ms
+   ❯ installer configuration and reviewed deployment (11)
+     × rejects invalid application port "0" without a request and focuses the field 1008ms
+     × rejects invalid application port "1023" without a request and focuses the field 1014ms
+     × rejects invalid application port "65536" without a request and focuses the field 1011ms
+     × rejects invalid application port "8180.5" without a request and focuses the field 1015ms
+     × rejects invalid application port "" without a request and focuses the field 1015ms
+     × saves valid configuration with the current CSRF, then requires an explicit release review before deployment 1018ms
+     × shows server port errors inline and preserves the entered value 1012ms
+     × polls deployment every two seconds, then stops when readiness succeeds and exposes only the local ready application 14ms
+     × retains deployment status after a network failure and allows an explicit status retry 3ms
+     × allows a failed configured deployment to be reviewed and retried with the latest session CSRF 1011ms
+     × rejects an inconsistent or malformed ready contract without constructing an application URL 1009ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 16 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/App.test.tsx > foundation surface > selects foundation only when the control endpoint is absent and reports real readiness and pending identity
+TestingLibraryElementError: Unable to find role="heading" and name "Transport management foundation"
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <main>
+      <h1>
+        TMS foundation
+      </h1>
+      <p>
+        Implementation pending.
+      </p>
+    </main>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <main>
+      <h1>
+        TMS foundation
+      </h1>
+      <p>
+        Implementation pending.
+      </p>
+    </main>
+  </div>
+</body>
+ ❯ waitForWrapper node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/App.test.tsx:25:25
+     23|     const api = installFetch(response({}, 404), response(foundation), …
+     24|     render(<App />);
+     25|     expect(await screen.findByRole('heading', { name: 'Transport manag…
+       |                         ^
+     26|     expect(await screen.findByText('Foundation ready')).toBeVisible();
+     27|     expect(screen.getByText(/Identity and administration are awaiting …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/16]⎯
+
+ FAIL  src/App.test.tsx > foundation surface > does not claim ready on a 503 and retries the actual readiness boundary
+TestingLibraryElementError: Unable to find an element with the text: Foundation is not ready. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <main>
+      <h1>
+        TMS foundation
+      </h1>
+      <p>
+        Implementation pending.
+      </p>
+    </main>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <main>
+      <h1>
+        TMS foundation
+      </h1>
+      <p>
+        Implementation pending.
+      </p>
+    </main>
+  </div>
+</body>
+ ❯ waitForWrapper node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/App.test.tsx:36:25
+     34|     const user = userEvent.setup();
+     35|     render(<App />);
+     36|     expect(await screen.findByText('Foundation is not ready')).toBeVis…
+       |                         ^
+     37|     expect(screen.queryByText('Foundation ready')).not.toBeInTheDocume…
+     38|     await user.click(screen.getByRole('button', { name: 'Check readine…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/16]⎯
+
+ FAIL  src/App.test.tsx > installer access > shows loading without actionable deployment controls until status is received
+TestingLibraryElementError: Unable to find an accessible element with the role "status"
+
+Here are the accessible roles:
+
+  main:
+
+  Name "":
+  <main />
+
+  --------------------------------------------------
+  heading:
+
+  Name "TMS foundation":
+  <h1 />
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  <p />
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <main>
+      <h1>
+        TMS foundation
+      </h1>
+      <p>
+        Implementation pending.
+      </p>
+    </main>
+  </div>
+</body>
+ ❯ Object.getElementError node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/App.test.tsx:47:19
+     45|     vi.stubGlobal('fetch', vi.fn(() => new Promise(() => {})));
+     46|     render(<App />);
+     47|     expect(screen.getByRole('status')).toHaveTextContent('Checking thi…
+       |                   ^
+     48|     expect(screen.queryByRole('button', { name: 'Deploy foundation' })…
+     49|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/16]⎯
+
+ FAIL  src/App.test.tsx > installer access > unlocks a 401 with an operator code, cookie credentials and no pre-session CSRF
+TestingLibraryElementError: Unable to find a label with the text of: Operator code
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <main>
+      <h1>
+        TMS foundation
+      </h1>
+      <p>
+        Implementation pending.
+      </p>
+    </main>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <main>
+      <h1>
+        TMS foundation
+      </h1>
+      <p>
+        Implementation pending.
+      </p>
+    </main>
+  </div>
+</body>
+ ❯ waitForWrapper node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/App.test.tsx:55:31
+     53|     const user = userEvent.setup();
+     54|     render(<App />);
+     55|     const code = await screen.findByLabelText('Operator code');
+       |                               ^
+     56|     expect(code).toHaveAttribute('type', 'password');
+     57|     await user.type(code, 'one-use-test-code');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/16]⎯
+
+ FAIL  src/App.test.tsx > installer access > preserves the locked surface and clears expired or used codes for retry
+TestingLibraryElementError: Unable to find a label with the text of: Operator code
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <main>
+      <h1>
+        TMS foundation
+      </h1>
+      <p>
+        Implementation pending.
+      </p>
+    </main>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <main>
+      <h1>
+        TMS foundation
+      </h1>
+      <p>
+        Implementation pending.
+      </p>
+    </main>
+  </div>
+</body>
+ ❯ waitForWrapper node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/App.test.tsx:71:34
+     69|     const user = userEvent.setup();
+     70|     render(<App />);
+     71|     await user.type(await screen.findByLabelText('Operator code'), 'ex…
+       |                                  ^
+     72|     await user.click(screen.getByRole('button', { name: 'Unlock instal…
+     73|     expect(await screen.findByRole('alert')).toHaveTextContent('Operat…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/16]⎯
+
+ FAIL  src/App.test.tsx > installer configuration and reviewed deployment > rejects invalid application port "0" without a request and focuses the field
+ FAIL  src/App.test.tsx > installer configuration and reviewed deployment > rejects invalid application port "1023" without a request and focuses the field
+ FAIL  src/App.test.tsx > installer configuration and reviewed deployment > rejects invalid application port "65536" without a request and focuses the field
+ FAIL  src/App.test.tsx > installer configuration and reviewed deployment > rejects invalid application port "8180.5" without a request and focuses the field
+ FAIL  src/App.test.tsx > installer configuration and reviewed deployment > rejects invalid application port "" without a request and focuses the field
+TestingLibraryElementError: Unable to find a label with the text of: Application port
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <main>
+      <h1>
+        TMS foundation
+      </h1>
+      <p>
+        Implementation pending.
+      </p>
+    </main>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <main>
+      <h1>
+        TMS foundation
+      </h1>
+      <p>
+        Implementation pending.
+      </p>
+    </main>
+  </div>
+</body>
+ ❯ waitForWrapper node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/App.test.tsx:84:31
+     82|     const user = userEvent.setup();
+     83|     render(<App />);
+     84|     const port = await screen.findByLabelText('Application port');
+       |                               ^
+     85|     await user.clear(port);
+     86|     if (value) await user.type(port, value);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/16]⎯
+
+ FAIL  src/App.test.tsx > installer configuration and reviewed deployment > saves valid configuration with the current CSRF, then requires an explicit release review before deployment
+TestingLibraryElementError: Unable to find a label with the text of: Application port
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <main>
+      <h1>
+        TMS foundation
+      </h1>
+      <p>
+        Implementation pending.
+      </p>
+    </main>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <main>
+      <h1>
+        TMS foundation
+      </h1>
+      <p>
+        Implementation pending.
+      </p>
+    </main>
+  </div>
+</body>
+ ❯ waitForWrapper node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/App.test.tsx:98:31
+     96|     const user = userEvent.setup();
+     97|     render(<App />);
+     98|     const port = await screen.findByLabelText('Application port');
+       |                               ^
+     99|     await user.clear(port); await user.type(port, '8181');
+    100|     await user.click(screen.getByRole('button', { name: 'Save configur…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/16]⎯
+
+ FAIL  src/App.test.tsx > installer configuration and reviewed deployment > shows server port errors inline and preserves the entered value
+TestingLibraryElementError: Unable to find a label with the text of: Application port
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <main>
+      <h1>
+        TMS foundation
+      </h1>
+      <p>
+        Implementation pending.
+      </p>
+    </main>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <main>
+      <h1>
+        TMS foundation
+      </h1>
+      <p>
+        Implementation pending.
+      </p>
+    </main>
+  </div>
+</body>
+ ❯ waitForWrapper node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/App.test.tsx:117:31
+    115|     const user = userEvent.setup();
+    116|     render(<App />);
+    117|     const port = await screen.findByLabelText('Application port');
+       |                               ^
+    118|     await user.clear(port); await user.type(port, '8182');
+    119|     await user.click(screen.getByRole('button', { name: 'Save configur…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/16]⎯
+
+ FAIL  src/App.test.tsx > installer configuration and reviewed deployment > polls deployment every two seconds, then stops when readiness succeeds and exposes only the local ready application
+AssertionError: expected "vi.fn()" to be called 1 times, but got 0 times
+ ❯ src/App.test.tsx:134:17
+    132|     expect(screen.queryByRole('link', { name: 'Open application' })).n…
+    133|     await act(async () => { await vi.advanceTimersByTimeAsync(1999); }…
+    134|     expect(api).toHaveBeenCalledTimes(1);
+       |                 ^
+    135|     await act(async () => { await vi.advanceTimersByTimeAsync(1); });
+    136|     expect(api).toHaveBeenCalledTimes(2);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/16]⎯
+
+ FAIL  src/App.test.tsx > installer configuration and reviewed deployment > retains deployment status after a network failure and allows an explicit status retry
+TestingLibraryElementError: Unable to find an element with the text: Services are starting.. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <main>
+      <h1>
+        TMS foundation
+      </h1>
+      <p>
+        Implementation pending.
+      </p>
+    </main>
+  </div>
+</body>
+ ❯ Object.getElementError node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/App.test.tsx:151:19
+    149|     await act(async () => { await Promise.resolve(); });
+    150|     await act(async () => { await vi.advanceTimersByTimeAsync(2000); }…
+    151|     expect(screen.getByText('Services are starting.')).toBeVisible();
+       |                   ^
+    152|     expect(screen.getByRole('alert')).toHaveTextContent('Connection lo…
+    153|     fireEvent.click(screen.getByRole('button', { name: 'Retry status c…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/16]⎯
+
+ FAIL  src/App.test.tsx > installer configuration and reviewed deployment > allows a failed configured deployment to be reviewed and retried with the latest session CSRF
+TestingLibraryElementError: Unable to find role="checkbox" and name `/I reviewed release m02-foundation/`
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <main>
+      <h1>
+        TMS foundation
+      </h1>
+      <p>
+        Implementation pending.
+      </p>
+    </main>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <main>
+      <h1>
+        TMS foundation
+      </h1>
+      <p>
+        Implementation pending.
+      </p>
+    </main>
+  </div>
+</body>
+ ❯ waitForWrapper node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/App.test.tsx:163:35
+    161|     const user = userEvent.setup();
+    162|     render(<App />);
+    163|     await user.click(await screen.findByRole('checkbox', { name: /I re…
+       |                                   ^
+    164|     await user.click(screen.getByRole('button', { name: 'Retry deploym…
+    165|     expect(JSON.parse(String(api.mock.calls[1][1]?.body))).toEqual({ c…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/16]⎯
+
+ FAIL  src/App.test.tsx > installer configuration and reviewed deployment > rejects an inconsistent or malformed ready contract without constructing an application URL
+TestingLibraryElementError: Unable to find role="alert"
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <main>
+      <h1>
+        TMS foundation
+      </h1>
+      <p>
+        Implementation pending.
+      </p>
+    </main>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <main>
+      <h1>
+        TMS foundation
+      </h1>
+      <p>
+        Implementation pending.
+      </p>
+    </main>
+  </div>
+</body>
+ ❯ waitForWrapper node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/App.test.tsx:172:25
+    170|     installFetch(response(status({ state: 'ready', configured: true, a…
+    171|     render(<App />);
+    172|     expect(await screen.findByRole('alert')).toHaveTextContent('Unexpe…
+       |                         ^
+    173|     expect(screen.queryByRole('link', { name: 'Open application' })).n…
+    174|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/16]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  16 failed (16)
+   Start at  15:25:41
+   Duration  15.45s (tests 87%, environment 9%, setup 3%, import 1%, transform 1%)
+

@@ -1,0 +1,9 @@
+
+ RUN  v5.0.3 <workspace>/work/tms/web
+
+
+ Test Files  1 passed (1)
+      Tests  17 passed (17)
+   Start at  15:39:42
+   Duration  8.90s (environment 46%, tests 41%, setup 8%, import 3%, transform 2%)
+

@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "taskId": "M02-T01",
+  "candidateSha": "6912a164ce197c8b6ca9ae134d20a2b2deda1831",
+  "assessedAt": "2026-10-02T15:16:38.102Z",
+  "assessor": "Codex browser acceptance; pairing authorised by gwhitdev",
+  "environment": {
+    "browser": "Codex in-app browser on Windows",
+    "installer": "http://127.0.0.1:8740/",
+    "application": "http://127.0.0.1:8180/",
+    "profile": "local development foundation"
+  },
+  "authorization": "gwhitdev explicitly approved resetting the automated-test installer session and pairing this browser for 30 days. No further dependency outage was performed.",
+  "checks": [
+    {
+      "id": "FND-BROWSER-UNLOCK",
+      "result": "passed",
+      "observation": "Real operator password field submitted the prepared one-use code. The installer returned the paired control UI; the temporary credential file was removed and its REPL variable cleared."
+    },
+    {
+      "id": "FND-BROWSER-STATUS",
+      "result": "passed",
+      "observation": "The saved failed report from the earlier storage outage was displayed honestly. Refresh status obtained live readiness, changed the heading to Foundation is ready and the job to succeeded, with PostgreSQL/storage/API/worker/web healthy and migration completed."
+    },
+    {
+      "id": "FND-BROWSER-SESSION",
+      "result": "passed",
+      "observation": "Reload preserved paired operator access and displayed the Ready installer, read-only port8180 settings and loopback exposure."
+    },
+    {
+      "id": "FND-BROWSER-OPEN",
+      "result": "passed",
+      "observation": "Open application created a new tab at the actual application address. Foundation ready, successful API/readiness, and explicit pending identity/administration/workflow states were observed."
+    }
+  ],
+  "proofs": [
+    {
+      "file": "TMS M02 installer.png",
+      "sha256": "4973e93c7a380bffd1c89d8f55c343f8a12b4eeebc7ba8653174423ad137d58a",
+      "location": "Local chat outputs; proof images supplied with the acceptance response"
+    },
+    {
+      "file": "TMS M02 foundation.png",
+      "sha256": "9b08eb29e52a2b785bd4d74c0d8449be3742700083787a78be4841406289d3d6",
+      "location": "Local chat outputs; proof images supplied with the acceptance response"
+    }
+  ],
+  "limits": [
+    "This paired browser review observed unlock, current status/recovery, session reload and application navigation. It did not repeat a clean first installation or induce another outage.",
+    "Initial configure/deploy/error transitions are supported by17 React component tests,15 actual installer HTTP tests and the clean-host control API deployment in CI; these methods are stated separately.",
+    "No production identity, tenant isolation, POD authorisation, native mobile, ERP integration, capacity or accessibility certification is inferred."
+  ]
+}

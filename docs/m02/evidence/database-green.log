@@ -1,0 +1,9 @@
+PASS FND-PG-01 | Current migration and foundation objects
+PASS FND-PG-02 | Restricted nonowner worker role
+PASS FND-PG-03 | Runtime cannot create schema objects
+PASS FND-PG-04 | Runtime cannot change migration history
+PASS FND-PG-05 | Runtime cannot assume migrator role
+PASS FND-PG-06 | Durable current worker heartbeat
+PASS FND-PG-07 | Controlled retention marker committed
+RESULT passed=7 failed=0
+LIMITATION: foundation privileges/readiness/persistence only; no tenant isolation, identity or business capabilities.

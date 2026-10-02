@@ -1,0 +1,32 @@
+
+ RUN  v5.0.3 <workspace>/work/tms/web
+
+ ❯ src/App.test.tsx (17 tests | 1 failed | 16 skipped) 435ms
+   ❯ installer configuration and reviewed deployment (12)
+     × retains a proposed port after an uncertain configuration request and status reconciliation 433ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/App.test.tsx > installer configuration and reviewed deployment > retains a proposed port after an uncertain configuration request and status reconciliation
+Error: expect(element).toHaveValue(8182)
+
+Expected the element to have value:
+  8182
+Received:
+  8180
+ ❯ src/App.test.tsx:137:18
+    135|     await user.click(screen.getByRole('button', { name: 'Retry status …
+    136|     expect(await screen.findByRole('button', { name: 'Save configurati…
+    137|     expect(port).toHaveValue('8182');
+       |                  ^
+    138|     expect(screen.getByRole('checkbox', { name: /I reviewed release m0…
+    139|     expect(screen.getByRole('button', { name: 'Deploy foundation' })).…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 16 skipped (17)
+   Start at  15:37:38
+   Duration  2.40s (environment 51%, tests 19%, setup 17%, import 6%, transform 6%)
+

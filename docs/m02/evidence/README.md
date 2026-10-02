@@ -1,0 +1,11 @@
+# M02-T01 assessment
+
+Assessed source: 6912a164ce197c8b6ca9ae134d20a2b2deda1831. Draft review: https://github.com/gwhitdev/tms/pull/2. Status: **verified** for the three M02-T01 foundation criteria; subsequent M02 tasks remain unimplemented.
+
+CI [run37023687207](https://github.com/gwhitdev/tms/actions/runs/37023687207) passed at tested PR merge SHA 6959588b60124591055507d71b2574e68d510bd4. The branch candidate and tested merge are distinct. The report artifact is m02-t01-foundation-6959588b60124591055507d71b2574e68d510bd4-1 with digest sha256:b21b27cdf00bc0a51e669de85daa9d7325205062383d08a1b3e522062ca9f038; GitHub retention expires 2026-11-01T15:01:58Z.
+
+15 installer HTTP tests,14 foundation policy/response examples and17 React UI tests pass. Retained actual RED runs show initial unimplemented behaviours and later defects before their fixes. The PostgreSQL RED is a real missing migration boundary, independently distinguished from connection/authentication failure. CI additionally boots the real release, reruns migrations, commits a durable heartbeat/diagnostic marker, writes/read-checks a private filer fixture, recreates containers preserving data, stops dependencies and verifies API503/recovery while the independent control plane remains available.
+
+The local clean-stack run's original source was not committed at execution; its candidateSha is honestly null. It preceded the final runtime patch and recovery correction. Final CI proves current source. Per-file input hashes, test limits, scenario-to-criterion links and artifact provenance are in [assessment.json](assessment.json) and [ci-assessment.json](ci-assessment.json).
+
+The real local browser displayed the installer unlock form and the application’s failed/then-recovered readiness after a dependency test. Following explicit pairing approval, the real browser unlocked the operator console, refreshed the saved outage report into current Ready status, retained the session on reload and opened the working application. [browser-assessment.json](browser-assessment.json) records the exact observations and screenshot hashes. Component tests and actual control API deployment are additional evidence; they are not described as a browser installation rehearsal. No production tenant/security/accessibility/mobile/ERP/capacity capability is inferred from this foundation.
